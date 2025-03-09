@@ -1,0 +1,11 @@
+services:
+  - type: web
+    name: firstdivision
+    env: static
+    buildCommand: "" # No build step needed
+    staticPublishPath: ./public # Pointing to the public directory
+    pullRequestPreviewsEnabled: true
+    headers:
+      - path: /*
+        name: Cache-Control
+        value: no-cache 
