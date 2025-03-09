@@ -1,0 +1,6 @@
+User-agent: *
+Allow: /
+Sitemap: https://firstdivision.com/sitemap.xml
+
+# Optimize crawling
+Crawl-delay: 10 
