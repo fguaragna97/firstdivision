@@ -3,7 +3,7 @@ services:
     name: firstdivision
     env: static
     buildCommand: "" # No build step needed
-    staticPublishPath: ./public # Pointing to the public directory
+    staticPublishPath: public # Remove the ./ prefix
     pullRequestPreviewsEnabled: true
     headers:
       - path: /*
