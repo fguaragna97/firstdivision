@@ -7,13 +7,20 @@
     
     <!-- SEO Meta Tags -->
     <meta name="description" content="Transform your digital presence with First Division's data-driven marketing strategies. Expert SEO, PPC & social media services to increase revenue by up to 285%. Free consultation available.">
-    <meta name="keywords" content="digital marketing agency, SEO services, PPC management, social media marketing, content marketing, digital strategy, ROI-focused marketing, data-driven marketing">
+    <meta name="keywords" content="digital marketing agency, SEO services, PPC management, social media marketing, content marketing, digital strategy, ROI-focused marketing, data-driven marketing, conversion rate optimization, lead generation">
     <meta name="author" content="First Division">
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
     <meta name="language" content="English">
     <meta name="geo.region" content="US">
     <meta name="geo.position" content="40.7128;-74.0060">
     <meta name="ICBM" content="40.7128, -74.0060">
+    
+    <!-- Performance & Security -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="theme-color" content="#4A90E2">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self' https: data: 'unsafe-inline' 'unsafe-eval';">
 
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website">
@@ -21,6 +28,8 @@
     <meta property="og:title" content="First Division - Transform Your Digital Marketing ROI">
     <meta property="og:description" content="Expert digital marketing services that deliver real results. Increase revenue and scale with confidence using data-driven strategies. Book a free consultation today.">
     <meta property="og:image" content="https://firstdivision.com/og-image.jpg">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
     <meta property="og:locale" content="en_US">
     <meta property="og:site_name" content="First Division">
 
@@ -31,12 +40,22 @@
     <meta name="twitter:description" content="Expert digital marketing services that deliver real results. Increase revenue and scale with confidence using data-driven strategies. Book a free consultation today.">
     <meta name="twitter:image" content="https://firstdivision.com/twitter-image.jpg">
     <meta name="twitter:creator" content="@firstdivision">
+    <meta name="twitter:site" content="@firstdivision">
 
     <!-- Favicon -->
     <link rel="icon" type="image/svg+xml" href="favicon.svg">
     <link rel="alternate icon" href="favicon.ico">
+    <link rel="apple-touch-icon" href="apple-touch-icon.png">
+    <link rel="manifest" href="manifest.json">
     <link rel="canonical" href="https://firstdivision.com/">
     <link rel="alternate" hreflang="en" href="https://firstdivision.com/">
+    <link rel="alternate" hreflang="x-default" href="https://firstdivision.com/">
+
+    <!-- Preload Critical Resources -->
+    <link rel="preconnect" href="https://cdn.jsdelivr.net">
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com">
+    <link rel="preload" href="css/styles.css" as="style">
+    <link rel="preload" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" as="style">
 
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -157,6 +176,49 @@
           "text": "Our strategies have helped brands increase revenue by up to 285% through precision-targeted campaigns, data-driven SEO, and optimized conversion funnels. We focus on delivering measurable results that directly impact your bottom line."
         }
       }]
+    }
+    </script>
+
+    <!-- Breadcrumb Structured Data -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [{
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Home",
+        "item": "https://firstdivision.com/"
+      },{
+        "@type": "ListItem",
+        "position": 2,
+        "name": "Services",
+        "item": "https://firstdivision.com/services"
+      }]
+    }
+    </script>
+
+    <!-- Article Structured Data for Blog -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Article",
+      "headline": "How Digital Marketing Can Transform Your Business in 2024",
+      "image": "https://firstdivision.com/blog-image.jpg",
+      "author": {
+        "@type": "Organization",
+        "name": "First Division"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "First Division",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "https://firstdivision.com/logo.jpg"
+        }
+      },
+      "datePublished": "2024-03-01",
+      "dateModified": "2024-03-09"
     }
     </script>
 </head>

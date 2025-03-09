@@ -3,4 +3,19 @@ Allow: /
 Sitemap: https://firstdivision.com/sitemap.xml
 
 # Optimize crawling
-Crawl-delay: 10 
+Crawl-delay: 10
+
+# Disallow specific directories
+Disallow: /admin/
+Disallow: /private/
+Disallow: /temp/
+Disallow: /assets/downloads/
+
+# Allow specific bots with custom rules
+User-agent: Googlebot
+Allow: /
+Crawl-delay: 5
+
+User-agent: Bingbot
+Allow: /
+Crawl-delay: 5 
