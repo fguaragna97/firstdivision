@@ -2,10 +2,10 @@ services:
   - type: web
     name: firstdivision
     env: static
-    buildCommand: "" # No build step needed
-    staticPublishPath: public # Remove the ./ prefix
+    buildCommand: "mkdir -p public" # Ensure public directory exists
+    staticPublishPath: public
     pullRequestPreviewsEnabled: true
     headers:
       - path: /*
         name: Cache-Control
-        value: no-cache 
+        value: no-cache
