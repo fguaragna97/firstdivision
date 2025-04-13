@@ -2,11 +2,17 @@ document.addEventListener('DOMContentLoaded', function() {
     // Add navbar scroll behavior to change background on scroll
     initNavbarScroll();
     
+    // Mobile navigation improvements
+    initMobileNavigation();
+    
     // Testimonials Carousel
     initTestimonialsCarousel();
     
     // Counters Animation
     initCountersAnimation();
+    
+    // Quality Content section animation
+    handleQualityContentSection();
 }); 
 
 // Handle Navbar Scroll Effect
@@ -45,9 +51,65 @@ function initNavbarScroll() {
                         top: offsetTop,
                         behavior: 'smooth'
                     });
+                    
+                    // Close mobile menu if open
+                    const navbarToggler = document.querySelector('.navbar-toggler');
+                    const navbarCollapse = document.querySelector('.navbar-collapse');
+                    if (navbarCollapse.classList.contains('show')) {
+                        navbarToggler.click();
+                    }
                 }
             }
         });
+    });
+}
+
+// Mobile Navigation Improvements
+function initMobileNavigation() {
+    const navbarToggler = document.querySelector('.navbar-toggler');
+    const navbarCollapse = document.querySelector('.navbar-collapse');
+    const navbarNav = document.querySelector('.navbar-nav');
+    
+    if (!navbarToggler || !navbarCollapse) return;
+    
+    // Add class for animation
+    navbarCollapse.addEventListener('show.bs.collapse', function () {
+        setTimeout(() => {
+            navbarCollapse.classList.add('show');
+        }, 50);
+    });
+    
+    navbarCollapse.addEventListener('hide.bs.collapse', function () {
+        navbarCollapse.classList.remove('show');
+    });
+    
+    // Close menu when clicking outside
+    document.addEventListener('click', function(e) {
+        // Skip if menu is not open or if click is on/inside the toggle button or navbar
+        if (!navbarCollapse.classList.contains('show') || 
+            navbarToggler.contains(e.target) ||
+            navbarNav.contains(e.target)) {
+            return;
+        }
+        
+        // If menu is open and click is outside, close it
+        if (navbarCollapse.classList.contains('show') && !navbarCollapse.contains(e.target)) {
+            const bsCollapse = new bootstrap.Collapse(navbarCollapse);
+            bsCollapse.hide();
+        }
+    });
+    
+    // Add smooth transition for menu
+    navbarToggler.addEventListener('click', function() {
+        document.body.classList.toggle('menu-open');
+    });
+    
+    // Close menu on window resize to desktop
+    window.addEventListener('resize', function() {
+        if (window.innerWidth >= 992 && navbarCollapse.classList.contains('show')) {
+            const bsCollapse = new bootstrap.Collapse(navbarCollapse);
+            bsCollapse.hide();
+        }
     });
 }
 
@@ -268,17 +330,25 @@ function handleQualityContentSection() {
     handleScroll();
 }
 
-// Call all initialization functions
-document.addEventListener('DOMContentLoaded', function() {
-    // Initialize navbar scroll effect
-    initNavbarScroll();
+// Resize event handler for responsive adjustments
+window.addEventListener('resize', function() {
+    // Recalculate heights and positions where needed
+    adjustHeightsForMobile();
+});
+
+// Adjust heights for better mobile experience
+function adjustHeightsForMobile() {
+    // Adjust video container height on mobile
+    const videoContainer = document.querySelector('.video-container');
+    if (videoContainer) {
+        if (window.innerWidth < 768) {
+            // Set a fixed aspect ratio on mobile
+            const width = videoContainer.offsetWidth;
+            videoContainer.style.height = (width * 0.56) + 'px'; // 16:9 aspect ratio
+        } else {
+            videoContainer.style.height = '';
+        }
+    }
     
-    // Initialize testimonials carousel if it exists
-    initTestimonialsCarousel();
-    
-    // Initialize counters animation if they exist
-    initCountersAnimation();
-    
-    // Initialize quality content section animation
-    handleQualityContentSection();
-}); 
+    // Adjust other responsive elements if needed
+} 
