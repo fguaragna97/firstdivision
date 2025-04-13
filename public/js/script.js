@@ -1,140 +1,284 @@
-/**
- * First Division - Main JavaScript
- * Handles various interactive elements and animations
- */
-
 document.addEventListener('DOMContentLoaded', function() {
-    // ===================================================
-    // Navbar Behavior on Scroll
-    // ===================================================
-    const navbar = document.querySelector('#mainNav');
+    // Add navbar scroll behavior to change background on scroll
+    initNavbarScroll();
     
-    function handleNavbarScroll() {
-        if (window.scrollY > 100) {
+    // Testimonials Carousel
+    initTestimonialsCarousel();
+    
+    // Counters Animation
+    initCountersAnimation();
+}); 
+
+// Handle Navbar Scroll Effect
+function initNavbarScroll() {
+    const navbar = document.querySelector('.navbar');
+    
+    // Initial check in case the page is already scrolled
+    if (window.scrollY > 50) {
+        navbar.classList.add('scrolled');
+    } else {
+        navbar.classList.remove('scrolled');
+    }
+    
+    // Add scroll event listener
+    window.addEventListener('scroll', function() {
+        if (window.scrollY > 50) {
             navbar.classList.add('scrolled');
         } else {
             navbar.classList.remove('scrolled');
         }
-    }
+    });
     
-    // Initialize navbar state on page load
-    handleNavbarScroll();
-    
-    // Add scroll event listener
-    window.addEventListener('scroll', handleNavbarScroll);
-    
-    // ===================================================
-    // Smooth Scrolling for Internal Links
-    // ===================================================
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener('click', function(e) {
-            e.preventDefault();
-            
-            const targetId = this.getAttribute('href');
-            if (targetId === '#') return; // Skip if it's just a # link
-            
-            const targetElement = document.querySelector(targetId);
-            if (targetElement) {
-                const navbarHeight = navbar.getBoundingClientRect().height;
-                const targetPosition = targetElement.getBoundingClientRect().top + window.pageYOffset - navbarHeight;
+    // Smooth scroll for navigation links
+    const navLinks = document.querySelectorAll('.nav-link:not(.cta-button)');
+    navLinks.forEach(link => {
+        link.addEventListener('click', function(e) {
+            // Only for links that point to sections on the same page
+            if (this.getAttribute('href').startsWith('#')) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                const targetSection = document.querySelector(targetId);
                 
-                window.scrollTo({
-                    top: targetPosition,
-                    behavior: 'smooth'
-                });
+                if (targetSection) {
+                    const offsetTop = targetSection.offsetTop - 80; // Adjust for navbar height
+                    window.scrollTo({
+                        top: offsetTop,
+                        behavior: 'smooth'
+                    });
+                }
             }
         });
     });
+}
+
+// Initialize Testimonials Carousel
+function initTestimonialsCarousel() {
+    const prevButton = document.getElementById('prevTestimonial');
+    const nextButton = document.getElementById('nextTestimonial');
+    const indicators = document.querySelectorAll('.indicator');
+    const testimonialCards = document.querySelectorAll('.testimonials-row .col-lg-4');
     
-    // ===================================================
-    // Animated Counters in Stats Section
-    // ===================================================
-    const counterElements = document.querySelectorAll('.counter');
-    let countersInitialized = false;
+    if (!prevButton || !nextButton || testimonialCards.length === 0) return;
     
+    let currentIndex = 0;
+    const totalSlides = testimonialCards.length;
+    
+    // Only initialize carousel for mobile views
+    if (window.innerWidth < 992) {
+        setupMobileCarousel();
+    }
+    
+    // Reinitialize on window resize
+    window.addEventListener('resize', function() {
+        if (window.innerWidth < 992) {
+            setupMobileCarousel();
+        } else {
+            // Reset for desktop view
+            testimonialCards.forEach(card => {
+                card.style.display = 'block';
+            });
+        }
+    });
+    
+    function setupMobileCarousel() {
+        // Hide all cards except the first one
+        testimonialCards.forEach((card, index) => {
+            if (index === 0) {
+                card.style.display = 'block';
+            } else {
+                card.style.display = 'none';
+            }
+        });
+        
+        // Update indicators
+        updateIndicators();
+        
+        // Add click events to buttons
+        prevButton.addEventListener('click', showPrevSlide);
+        nextButton.addEventListener('click', showNextSlide);
+        
+        // Add click events to indicators
+        indicators.forEach((indicator, index) => {
+            indicator.addEventListener('click', () => {
+                currentIndex = index;
+                updateCarousel();
+            });
+        });
+    }
+    
+    function showPrevSlide() {
+        currentIndex = (currentIndex - 1 + totalSlides) % totalSlides;
+        updateCarousel();
+    }
+    
+    function showNextSlide() {
+        currentIndex = (currentIndex + 1) % totalSlides;
+        updateCarousel();
+    }
+    
+    function updateCarousel() {
+        // Hide all testimonials
+        testimonialCards.forEach(card => {
+            card.style.display = 'none';
+        });
+        
+        // Show current testimonial
+        testimonialCards[currentIndex].style.display = 'block';
+        
+        // Add fade-in animation
+        testimonialCards[currentIndex].classList.remove('animate__fadeInUp');
+        void testimonialCards[currentIndex].offsetWidth; // Trigger a reflow
+        testimonialCards[currentIndex].classList.add('animate__fadeInUp');
+        
+        // Update indicators
+        updateIndicators();
+    }
+    
+    function updateIndicators() {
+        indicators.forEach((indicator, index) => {
+            if (index === currentIndex) {
+                indicator.classList.add('active');
+            } else {
+                indicator.classList.remove('active');
+            }
+        });
+    }
+}
+
+// Animate counters when visible
+function initCountersAnimation() {
+    const counters = document.querySelectorAll('.counter');
+    
+    if (counters.length === 0) return;
+    
+    // Set up Intersection Observer
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                // Add animation class
+                entry.target.classList.add('animate__animated', 'animate__fadeIn');
+                
+                // Start counting if it's a number
+                const counterValue = entry.target.innerText;
+                if (counterValue.includes('%') || counterValue.includes('x')) {
+                    animateCounter(entry.target);
+                }
+                
+                // Unobserve the element to avoid repeated animations
+                observer.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.1 });
+    
+    // Observe all counter elements
+    counters.forEach(counter => {
+        observer.observe(counter);
+    });
+    
+    // Function to animate a counter from 0 to its target value
+    function animateCounter(counterElement) {
+        const finalValue = counterElement.innerText;
+        let suffix = '';
+        let targetValue = 0;
+        
+        if (finalValue.includes('%')) {
+            targetValue = parseInt(finalValue);
+            suffix = '%';
+        } else if (finalValue.includes('x')) {
+            targetValue = parseFloat(finalValue);
+            suffix = 'x';
+        } else if (finalValue.includes('h')) {
+            targetValue = parseFloat(finalValue);
+            suffix = 'h';
+        } else {
+            targetValue = parseInt(finalValue);
+        }
+        
+        let startValue = 0;
+        const duration = 2000; // 2 seconds
+        const interval = 16; // ~60fps
+        const increment = (targetValue / (duration / interval));
+        
+        counterElement.innerText = '0' + suffix;
+        
+        const timer = setInterval(() => {
+            startValue += increment;
+            
+            if (startValue >= targetValue) {
+                counterElement.innerText = finalValue;
+                clearInterval(timer);
+            } else {
+                if (suffix === 'x' || suffix === 'h') {
+                    counterElement.innerText = startValue.toFixed(1) + suffix;
+                } else {
+                    counterElement.innerText = Math.floor(startValue) + suffix;
+                }
+            }
+        }, interval);
+    }
+}
+
+// Quality Content section animation
+function handleQualityContentSection() {
+    const section = document.querySelector('.quality-content-section');
+    const heading = document.getElementById('quality-content-heading');
+    const accentLine = section.querySelector('.accent-line');
+    
+    if (!section || !heading || !accentLine) return;
+    
+    // Set initial opacity
+    heading.style.opacity = '0';
+    accentLine.style.opacity = '0';
+    
+    // Function to check if element is in viewport
     function isInViewport(element) {
         const rect = element.getBoundingClientRect();
+        const windowHeight = window.innerHeight || document.documentElement.clientHeight;
+        
+        // Different thresholds for different sized screens
+        let threshold = 0.3; // Default threshold (30% of element needs to be visible)
+        
+        if (window.innerWidth < 768) {
+            threshold = 0.2; // On mobile, only need 20% of element to be visible
+        }
+        
         return (
-            rect.top <= (window.innerHeight || document.documentElement.clientHeight) &&
-            rect.bottom >= 0
+            rect.top <= windowHeight * (1 - threshold) &&
+            rect.bottom >= windowHeight * threshold
         );
     }
     
-    function animateCounters() {
-        if (countersInitialized) return; // Only run once
-        
-        // Check if first counter is in viewport
-        if (counterElements.length > 0 && isInViewport(counterElements[0])) {
-            counterElements.forEach(counter => {
-                const target = counter.textContent;
-                const isPercentage = target.includes('%');
-                const isPlus = target.includes('+');
-                
-                // Extract the numeric value
-                let numericValue = parseInt(target.replace(/\D/g, ''));
-                const duration = 2000; // Animation duration in milliseconds
-                const frameDuration = 1000 / 60; // 60fps
-                const totalFrames = Math.round(duration / frameDuration);
-                
-                let currentNumber = 0;
-                const increment = numericValue / totalFrames;
-                
-                const animation = setInterval(() => {
-                    currentNumber += increment;
-                    
-                    if (currentNumber >= numericValue) {
-                        currentNumber = numericValue;
-                        clearInterval(animation);
-                    }
-                    
-                    let displayValue = Math.floor(currentNumber).toLocaleString();
-                    
-                    if (isPercentage) displayValue += '%';
-                    if (isPlus) displayValue += '+';
-                    
-                    counter.textContent = displayValue;
-                }, frameDuration);
-            });
-            
-            countersInitialized = true;
+    // Function to handle scroll events
+    function handleScroll() {
+        if (isInViewport(section)) {
+            heading.style.opacity = '1';
+            accentLine.style.opacity = '1';
+            accentLine.style.width = '150px';
+        } else {
+            heading.style.opacity = '0';
+            accentLine.style.opacity = '0';
+            accentLine.style.width = '80px';
         }
     }
     
-    // Check counters on scroll
-    window.addEventListener('scroll', animateCounters);
-    // Check on initial load too
-    animateCounters();
+    // Add scroll event listener
+    window.addEventListener('scroll', handleScroll);
     
-    // ===================================================
-    // Quality Content Section Word Hover Effects
-    // ===================================================
-    const headingWords = document.querySelectorAll('.heading-word');
+    // Trigger on page load too
+    handleScroll();
+}
+
+// Call all initialization functions
+document.addEventListener('DOMContentLoaded', function() {
+    // Initialize navbar scroll effect
+    initNavbarScroll();
     
-    if (headingWords.length > 0) {
-        headingWords.forEach(word => {
-            word.addEventListener('mouseenter', function() {
-                const letters = this.querySelectorAll('.heading-letter');
-                letters.forEach(letter => {
-                    letter.style.opacity = '1';
-                    letter.style.color = '#E6F3FF'; // Use accent color
-                    letter.style.textShadow = '0 0 15px rgba(230, 243, 255, 0.8)';
-                });
-            });
-            
-            word.addEventListener('mouseleave', function() {
-                const letters = this.querySelectorAll('.heading-letter');
-                letters.forEach(letter => {
-                    letter.style.opacity = '0.7';
-                    letter.style.color = 'white';
-                    letter.style.textShadow = 'none';
-                });
-            });
-        });
-        
-        // Set initial opacity
-        document.querySelectorAll('.heading-letter').forEach(letter => {
-            letter.style.opacity = '0.7';
-            letter.style.transition = 'all 0.3s ease';
-        });
-    }
+    // Initialize testimonials carousel if it exists
+    initTestimonialsCarousel();
+    
+    // Initialize counters animation if they exist
+    initCountersAnimation();
+    
+    // Initialize quality content section animation
+    handleQualityContentSection();
 }); 

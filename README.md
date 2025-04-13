@@ -1,157 +1,94 @@
-# First Division - Digital Marketing Agency Website
+# First Division Marketing Agency Website
 
-## Project Overview
-This is the codebase for First Division, a digital marketing agency website. The site is designed to showcase the agency's services, expertise, and results to potential clients.
+This repository contains the front-end code for the First Division marketing agency website.
 
 ## Project Structure
 
-### Key Files
-- `public/index.html` - Main HTML file with the website content
-- `public/css/styles.css` - Consolidated CSS file containing all styles
-- `public/js/script.js` - JavaScript for various interactions and animations
-- `public/robots.txt` - Instructions for search engine crawlers
-- `public/sitemap.xml` - XML sitemap for better search engine indexing
+```
+firstdivision/
+├── public/                # Main public directory
+│   ├── index.html         # Main HTML file
+│   ├── thank-you.html     # Thank you page
+│   ├── sitemap.xml        # XML sitemap for SEO
+│   ├── robots.txt         # Robots.txt file for SEO
+│   ├── manifest.json      # Web app manifest
+│   ├── favicon.svg        # Favicon
+│   ├── css/               # CSS styles
+│   │   └── styles.css     # Main stylesheet
+│   ├── js/                # JavaScript files
+│   │   └── script.js      # Main script file
+│   └── assets/            # Assets directory
+│       └── videos/        # Video files
+│           └── Background.mp4  # Hero section background video
+│       └── images/        # Image files
+├── server.js              # Simple Node.js server
+└── render.yaml            # Render deployment config
+```
 
-### Assets
-- `public/assets/images/` - Contains all image files used throughout the site
-  - `hero-video-background.png` - Background image for the hero section
-  - Various social media icons
+## Style Structure
 
-## Website Sections
+The CSS is organized into sections:
 
-### Navigation
-The navigation bar is fixed at the top with links to each main section of the site. It includes:
-- Services
-- About
-- Testimonials
-- Contact
-
-### Hero Section
-The hero section features:
-- Main headline "Transform Your Digital Presence"
-- Subtitle highlighting value proposition
-- CTA button for booking consultations
-- Social proof with star ratings
-- Video/image display with a custom black frame (video container)
-
-### Quality Content Section
-This section contains an interactive headline "Where quality content meets meaningful growth" with:
-- Word-by-word organization using span elements
-- Interactive hover effects via JavaScript
-- Accent line animation on scroll
-
-### Statistics Section
-Displays key metrics with animated elements:
-- Revenue increase percentage
-- Number of leads generated
-- Award-winning campaigns
-- Pulsing icons and hover effects
-
-### Services Container
-The services section is divided into three main services:
-1. SEO & Content Marketing
-2. Paid Acquisition
-3. Performance Analytics
-
-Each service has:
-- Service badge
-- Title and description
-- Feature list with check icons
-- CTA button
-- Visual icon presentation
-
-### CTA Section
-A final call-to-action section with:
-- Large heading
-- Prominent button for booking consultations
-
-### Footer
-Simple footer with copyright information.
-
-## Styling Architecture
-
-The CSS is organized into logical sections:
-1. Global Variables (`:root`)
-2. Global Styles
-3. Hero Section
-4. Navigation
-5. Buttons & CTAs
-6. Services Section
-7. Quality Content Section
-8. Statistics Section
-9. Testimonials Section
-10. Miscellaneous Styles
+1. Root Variables & Global Styles
+2. Navigation Styles
+3. Hero Section Styles
+4. CTA Button Styles
+5. Quality Content Section
+6. Animation & Effects
+7. Statistics Section
+8. Testimonial Section
+9. Services Section
+10. Consulting CTA Section
 11. Form Controls
-12. Contact Section
-13. Footer
-14. Responsive Adjustments
+12. Footer
+13. Responsive Adjustments
+
+## Features
+
+- Modern, clean design with a focus on readability and user experience
+- Responsive layout for all device sizes
+- Optimized for SEO with meta tags, structured data, sitemap, and robots.txt
+- Interactive elements including:
+  - Animated statistics counters
+  - Hover effects on service cards
+  - Scroll-triggered animations in the Quality Content section
+  - Video background with frame effect in the hero section
+- Performance optimized with:
+  - Preloaded critical resources
+  - Optimized image assets
+  - CSS and JS file organization
 
 ## JavaScript Features
 
-1. **Scroll Detection** - For the quality content section to reveal text when scrolled into view
-2. **Navbar Behavior** - Changes appearance when scrolling
-3. **Interactive Elements** - Hover effects and animations
+- Navbar scroll effect (changes appearance on scroll)
+- Smooth scrolling for navigation links
+- Interactive quality content section with scroll-triggered animations
+- Testimonials carousel for mobile views
+- Counter animations that activate on scroll
 
-## SEO Optimization
+## Development
 
-The site includes:
+To run the project locally:
+
+1. Clone the repository
+2. Install dependencies with `npm install`
+3. Run the server with `node server.js`
+4. The site will be available at `http://localhost:3000`
+
+## SEO Optimizations
+
 - Comprehensive meta tags for search engines
-- Open Graph tags for social media sharing
-- Twitter Card support
-- JSON-LD structured data for:
-  - Business information
-  - FAQs
-  - Breadcrumbs
-- XML sitemap with page priorities
-- Robots.txt with crawl instructions
+- Open Graph and Twitter Card meta tags for social media sharing
+- JSON-LD structured data for business information and FAQs
+- XML sitemap and robots.txt for search engine crawling
+- Semantic HTML elements with appropriate ARIA attributes for accessibility
 
-## Notes for Development
+## Black Frame Video Container
 
-### Video Frame
-The video container in the hero section has a black frame around it, created using:
-```css
-.video-container::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    border-radius: 24px;
-    padding: 10px;
-    background: #000000; /* Black frame */
-    -webkit-mask: 
-        linear-gradient(#fff 0 0) content-box, 
-        linear-gradient(#fff 0 0);
-    -webkit-mask-composite: xor;
-    mask-composite: exclude;
-    pointer-events: none;
-    z-index: 1;
-}
-```
+The video in the hero section features a sleek black frame. This is achieved by using the `::before` pseudo-element with a black background and a mask to create the frame effect.
 
-### Quality Content Section
-The quality content section uses:
-- Individual spans for each letter and word
-- Data attributes for tracking word and letter indices
-- JavaScript to reveal content when scrolled into view
+## Notes on Code Structure
 
-### Responsive Design
-The site is fully responsive with breakpoints at:
-- 991px (tablets and smaller devices)
-- 768px (mobile devices)
+The project uses a component-based approach to structuring the HTML, CSS, and JavaScript. Each section of the website is self-contained, making it easier to maintain and update. The JavaScript is organized to initialize different features only when the corresponding elements exist in the DOM.
 
-## Future Enhancements
-- Add testimonials section
-- Implement blog section
-- Create case studies page
-- Add contact form
-- Enhance animations with GSAP
-
-## Deployment
-The site is configured for deployment with:
-- A CNAME file for custom domain
-- Proper SEO optimization for search engines
-
-## License
-Copyright © 2024 First Division. All rights reserved. 
+All styles have been separated from the HTML file and placed in the styles.css file for better organization and maintainability. 
