@@ -221,25 +221,111 @@
       "dateModified": "2024-03-09"
     }
     </script>
+    
+    <!-- Testimonials Structured Data -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      "name": "First Division",
+      "url": "https://firstdivision.com",
+      "review": [
+        {
+          "@type": "Review",
+          "reviewRating": {
+            "@type": "Rating",
+            "ratingValue": "5",
+            "bestRating": "5"
+          },
+          "author": {
+            "@type": "Person",
+            "name": "Sarah Anderson"
+          },
+          "reviewBody": "First Division transformed our digital marketing strategy completely. They handled everything - from SEO to paid campaigns - and the results were incredible. Our lead generation increased by 285% and revenue grew by 178% in just 4 months!",
+          "name": "Exceptional digital marketing results",
+          "datePublished": "2024-02-15",
+          "publisher": {
+            "@type": "Organization",
+            "name": "GrowthTech Solutions"
+          }
+        },
+        {
+          "@type": "Review",
+          "reviewRating": {
+            "@type": "Rating",
+            "ratingValue": "5",
+            "bestRating": "5"
+          },
+          "author": {
+            "@type": "Person",
+            "name": "Michael Johnson"
+          },
+          "reviewBody": "We struggled to gain traction in a competitive market until we partnered with First Division. Their data-driven approach and strategic insights completely changed our digital presence. Our conversion rates have improved by 142% and our customer acquisition cost dropped by 38%.",
+          "name": "Data-driven digital marketing success",
+          "datePublished": "2024-03-01",
+          "publisher": {
+            "@type": "Organization",
+            "name": "Innovate Solutions Inc."
+          }
+        },
+        {
+          "@type": "Review",
+          "reviewRating": {
+            "@type": "Rating",
+            "ratingValue": "5",
+            "bestRating": "5"
+          },
+          "author": {
+            "@type": "Person",
+            "name": "Jennifer Lee"
+          },
+          "reviewBody": "The First Division team truly understands how to create campaigns that resonate with audiences. Their social media strategy helped us increase our engagement by 320% and followers by 215%. The best part is how they tied these metrics to actual sales growth - our e-commerce revenue is up 95% year-over-year.",
+          "name": "Social media and e-commerce growth",
+          "datePublished": "2024-03-15",
+          "publisher": {
+            "@type": "Organization",
+            "name": "Global Retail Brands"
+          }
+        }
+      ]
+    }
+    </script>
+
+    <style>
+        html {
+            scroll-behavior: smooth;
+        }
+        
+        :root {
+            --accent-color: #4A90E2;
+            --dark-color: #212529;
+            --accent-gradient: linear-gradient(135deg, #4A90E2, #83C0FF);
+            --accent-hover: linear-gradient(135deg, #3A80D2, #73B0FF);
+            --button-shadow: rgba(74, 144, 226, 0.3);
+        }
+    </style>
 </head>
 <body>
     <!-- Navigation -->
-    <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
+    <nav class="navbar navbar-expand-lg fixed-top" id="mainNav">
         <div class="container">
             <a class="navbar-brand" href="#">First Division</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
+            <div class="collapse navbar-collapse" id="navbarResponsive">
                 <ul class="navbar-nav ms-auto">
-                    <li class="nav-item">
-                        <a class="nav-link" href="#home">Home</a>
-                    </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#services">Services</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link cta-button" href="https://form.typeform.com/to/ebjeojFk" style="color: var(--dark-color) !important;">Contact Us</a>
+                        <a class="nav-link" href="#about">About</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#testimonials">Testimonials</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#contact">Contact</a>
                     </li>
                 </ul>
             </div>
@@ -247,143 +333,294 @@
     </nav>
 
     <!-- Hero Section -->
-    <section id="home" class="hero-section">
-        <div class="video-background">
-            <video autoplay muted loop playsinline id="myVideo">
-                <source src="assets/videos/Background.mp4" type="video/mp4">
-            </video>
-        </div>
-        <div class="overlay"></div>
-        <div class="hero-content">
-            <div class="container">
-                <div class="row justify-content-center">
-                    <div class="col-lg-10 text-center">
-                        <span class="badge bg-accent mb-3" role="text">Digital Marketing Agency</span>
-                        <h1 class="main-title mb-4" itemprop="name">Transform Your Digital Presence</h1>
-                        <p class="lead hero-subtitle mb-4" itemprop="description">We deliver results. Our proven strategies drive revenue growth, attract high-value customers, and help brands scale with certainty.</p>
-                        <div class="cta-group">
-                            <a href="https://form.typeform.com/to/ebjeojFk" class="cta-button btn-lg" role="button" aria-label="Get Started with Digital Marketing">
-                                <i class="fas fa-rocket me-2" aria-hidden="true"></i>Get Started
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="scroll-indicator">
-            <a href="#services" class="text-white" aria-label="Scroll to Services">
-                <i class="fas fa-chevron-down" aria-hidden="true"></i>
-            </a>
-        </div>
-    </section>
-
-    <!-- Services Section -->
-    <section id="services" class="py-5 bg-dark text-white">
+    <section class="hero-section">
         <div class="container">
-            <header class="text-center mb-5">
-                <span class="badge bg-accent mb-3" role="text">Our Services</span>
-                <h2 class="display-4 fw-bold mb-3">How We Help You Grow</h2>
-                <p class="lead text-white-50 mb-0">Choose your path to digital success with our proven strategies</p>
-            </header>
-            <div class="row g-4 justify-content-center" itemscope itemtype="http://schema.org/Service">
-                <div class="col-md-6 col-lg-4">
-                    <article class="card h-100 bg-white service-card">
-                        <div class="card-body text-center p-4">
-                            <div class="icon-wrapper">
-                                <i class="fas fa-rocket text-dark icon-animated" aria-hidden="true"></i>
-                            </div>
-                            <h3 class="card-title fw-bold text-dark h5" itemprop="name">Organic Growth</h3>
-                            <p class="card-text text-muted" itemprop="description">Dominate your market with data-driven SEO strategies and engaging social media campaigns that create lasting impact.</p>
-                            <div class="mt-4">
-                                <a href="https://form.typeform.com/to/ebjeojFk" class="btn btn-outline-dark" aria-label="Learn more about Organic Growth">Learn More <i class="fas fa-arrow-right ms-2" aria-hidden="true"></i></a>
-                            </div>
+            <div class="row align-items-center">
+                <!-- Left side: Hero Text -->
+                <div class="col-lg-6 hero-content-left">
+                    <h1 class="main-title">Transform Your Digital Presence</h1>
+                    <p class="hero-subtitle">We deliver results-driven marketing strategies that increase revenue and help your business scale with confidence.</p>
+                    
+                    <div class="mt-5 mb-4">
+                        <a href="https://form.typeform.com/to/ebjeojFk" class="cta-button">Book a Free Consultation <i class="fas fa-arrow-right ms-2"></i></a>
+                    </div>
+                    
+                    <div class="social-proof mt-4">
+                        <div class="star-rating">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
                         </div>
-                    </article>
-                </div>
-                <div class="col-md-6 col-lg-4">
-                    <div class="card h-100 bg-white service-card featured">
-                        <div class="card-body text-center p-4">
-                            <div class="popular-badge">Most Popular</div>
-                            <div class="icon-wrapper">
-                                <i class="fas fa-bullseye text-dark icon-animated"></i>
-                            </div>
-                            <h5 class="card-title fw-bold text-dark">Paid Acquisition</h5>
-                            <p class="card-text text-muted">Scale your business with precision-targeted paid campaigns that maximize ROI and capture high-intent customers.</p>
-                            <div class="mt-4">
-                                <a href="https://form.typeform.com/to/ebjeojFk" class="btn btn-dark">Get Started <i class="fas fa-arrow-right ms-2"></i></a>
-                            </div>
-                        </div>
+                        <div class="rating-text">Rated 4.9/5 by our clients</div>
                     </div>
                 </div>
-                <div class="col-md-6 col-lg-4">
-                    <div class="card h-100 bg-white service-card">
-                        <div class="card-body text-center p-4">
-                            <div class="icon-wrapper">
-                                <i class="fas fa-chart-line text-dark icon-animated"></i>
-                            </div>
-                            <h5 class="card-title fw-bold text-dark">Performance Analytics</h5>
-                            <p class="card-text text-muted">Make data-driven decisions with real-time analytics and actionable insights that fuel continuous growth.</p>
-                            <div class="mt-4">
-                                <a href="https://form.typeform.com/to/ebjeojFk" class="btn btn-outline-dark">Learn More <i class="fas fa-arrow-right ms-2"></i></a>
-                            </div>
-                        </div>
+                
+                <!-- Right side: Video -->
+                <div class="col-lg-6">
+                    <div class="video-container">
+                        <img src="assets/images/hero-video-background.png" alt="Marketing strategy video thumbnail" class="rounded-video">
                     </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="scroll-indicator">
+            <span>Scroll Down</span>
+            <br>
+            <i class="fas fa-chevron-down"></i>
+        </div>
+    </section>
+
+    <!-- Quality Content Section -->
+    <section class="quality-content-section d-flex align-items-center">
+        <div class="container">
+            <div class="row text-center">
+                <div class="col">
+                    <h2 id="quality-content-heading">
+                        <span class="heading-word">
+                            <span class="heading-letter" data-word-index="0" data-letter-index="0">W</span>
+                            <span class="heading-letter" data-word-index="0" data-letter-index="1">h</span>
+                            <span class="heading-letter" data-word-index="0" data-letter-index="2">e</span>
+                            <span class="heading-letter" data-word-index="0" data-letter-index="3">r</span>
+                            <span class="heading-letter" data-word-index="0" data-letter-index="4">e</span>
+                        </span>
+                        <span class="heading-space" style="width: 0.5em;"></span>
+                        <span class="heading-word">
+                            <span class="heading-letter" data-word-index="1" data-letter-index="0">q</span>
+                            <span class="heading-letter" data-word-index="1" data-letter-index="1">u</span>
+                            <span class="heading-letter" data-word-index="1" data-letter-index="2">a</span>
+                            <span class="heading-letter" data-word-index="1" data-letter-index="3">l</span>
+                            <span class="heading-letter" data-word-index="1" data-letter-index="4">i</span>
+                            <span class="heading-letter" data-word-index="1" data-letter-index="5">t</span>
+                            <span class="heading-letter" data-word-index="1" data-letter-index="6">y</span>
+                        </span>
+                        <span class="heading-space" style="width: 0.5em;"></span>
+                        <span class="heading-word">
+                            <span class="heading-letter" data-word-index="2" data-letter-index="0">c</span>
+                            <span class="heading-letter" data-word-index="2" data-letter-index="1">o</span>
+                            <span class="heading-letter" data-word-index="2" data-letter-index="2">n</span>
+                            <span class="heading-letter" data-word-index="2" data-letter-index="3">t</span>
+                            <span class="heading-letter" data-word-index="2" data-letter-index="4">e</span>
+                            <span class="heading-letter" data-word-index="2" data-letter-index="5">n</span>
+                            <span class="heading-letter" data-word-index="2" data-letter-index="6">t</span>
+                        </span>
+                        <span class="heading-space" style="width: 0.5em;"></span>
+                        <span class="heading-word">
+                            <span class="heading-letter" data-word-index="3" data-letter-index="0">m</span>
+                            <span class="heading-letter" data-word-index="3" data-letter-index="1">e</span>
+                            <span class="heading-letter" data-word-index="3" data-letter-index="2">e</span>
+                            <span class="heading-letter" data-word-index="3" data-letter-index="3">t</span>
+                            <span class="heading-letter" data-word-index="3" data-letter-index="4">s</span>
+                        </span>
+                        <span class="heading-space" style="width: 0.5em;"></span>
+                        <span class="heading-word">
+                            <span class="heading-letter" data-word-index="4" data-letter-index="0">m</span>
+                            <span class="heading-letter" data-word-index="4" data-letter-index="1">e</span>
+                            <span class="heading-letter" data-word-index="4" data-letter-index="2">a</span>
+                            <span class="heading-letter" data-word-index="4" data-letter-index="3">n</span>
+                            <span class="heading-letter" data-word-index="4" data-letter-index="4">i</span>
+                            <span class="heading-letter" data-word-index="4" data-letter-index="5">n</span>
+                            <span class="heading-letter" data-word-index="4" data-letter-index="6">g</span>
+                            <span class="heading-letter" data-word-index="4" data-letter-index="7">f</span>
+                            <span class="heading-letter" data-word-index="4" data-letter-index="8">u</span>
+                            <span class="heading-letter" data-word-index="4" data-letter-index="9">l</span>
+                        </span>
+                        <span class="heading-space" style="width: 0.5em;"></span>
+                        <span class="heading-word">
+                            <span class="heading-letter" data-word-index="5" data-letter-index="0">g</span>
+                            <span class="heading-letter" data-word-index="5" data-letter-index="1">r</span>
+                            <span class="heading-letter" data-word-index="5" data-letter-index="2">o</span>
+                            <span class="heading-letter" data-word-index="5" data-letter-index="3">w</span>
+                            <span class="heading-letter" data-word-index="5" data-letter-index="4">t</span>
+                            <span class="heading-letter" data-word-index="5" data-letter-index="5">h</span>
+                        </span>
+                    </h2>
+                    <div class="accent-line mt-4"></div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Statistics Section -->
+    <!-- Stats -->
     <section class="py-5 bg-dark text-white">
         <div class="container">
-            <header class="text-center mb-5">
-                <span class="badge bg-accent mb-3">Why Digital Marketing Matters</span>
-                <h2 class="display-5 fw-bold mb-3">The Numbers That Drive Success</h2>
-                <p class="lead text-white-50 mb-5">In today's digital landscape, these statistics highlight why businesses need a strong online presence to thrive and stay competitive.</p>
-            </header>
-            <div class="row g-4 stats-row">
-                <div class="col-md-3 text-center">
-                    <article class="stat-card p-4 animate__animated animate__fadeInUp" itemscope itemtype="http://schema.org/Statistic">
-                        <div class="stat-icon mb-4">
-                            <i class="fas fa-chart-line fa-3x text-accent pulse-icon" aria-hidden="true"></i>
-                        </div>
-                        <h3 class="stat-number fw-bold display-3 mb-3 counter" itemprop="value">89%</h3>
-                        <p class="stat-description mb-0 lead" itemprop="description">of marketers say digital channels are more effective than traditional marketing</p>
-                    </article>
-                </div>
-                <div class="col-md-3 text-center">
-                    <div class="stat-card p-4 animate__animated animate__fadeInUp" style="animation-delay: 0.2s;">
-                        <div class="stat-icon mb-4">
-                            <i class="fas fa-mobile-alt fa-3x text-accent pulse-icon"></i>
-                        </div>
-                        <h3 class="stat-number fw-bold display-3 mb-3 counter">5.4h</h3>
-                        <p class="stat-description mb-0 lead">average daily time spent consuming digital content by adults</p>
+            <div class="row text-center">
+                <div class="col-md-4 mb-4 mb-md-0">
+                    <div class="stat-card p-4">
+                        <i class="fas fa-chart-line fa-3x mb-3 pulse-icon"></i>
+                        <h2 class="counter fw-bold display-4">285%</h2>
+                        <p class="lead">Average Revenue Increase</p>
                     </div>
                 </div>
-                <div class="col-md-3 text-center">
-                    <div class="stat-card p-4 animate__animated animate__fadeInUp" style="animation-delay: 0.4s;">
-                        <div class="stat-icon mb-4">
-                            <i class="fas fa-dollar-sign fa-3x text-accent pulse-icon"></i>
-                        </div>
-                        <h3 class="stat-number fw-bold display-3 mb-3 counter">6.5x</h3>
-                        <p class="stat-description mb-0 lead">higher conversion rates through content marketing versus traditional methods</p>
+                <div class="col-md-4 mb-4 mb-md-0">
+                    <div class="stat-card p-4">
+                        <i class="fas fa-users fa-3x mb-3 pulse-icon"></i>
+                        <h2 class="counter fw-bold display-4">14,500+</h2>
+                        <p class="lead">Qualified Leads Generated</p>
                     </div>
                 </div>
-                <div class="col-md-3 text-center">
-                    <div class="stat-card p-4 animate__animated animate__fadeInUp" style="animation-delay: 0.6s;">
-                        <div class="stat-icon mb-4">
-                            <i class="fas fa-users fa-3x text-accent pulse-icon"></i>
-                        </div>
-                        <h3 class="stat-number fw-bold display-3 mb-3 counter">72%</h3>
-                        <p class="stat-description mb-0 lead">of consumers only engage with personalized marketing messages</p>
+                <div class="col-md-4">
+                    <div class="stat-card p-4">
+                        <i class="fas fa-trophy fa-3x mb-3 pulse-icon"></i>
+                        <h2 class="counter fw-bold display-4">110+</h2>
+                        <p class="lead">Award-Winning Campaigns</p>
                     </div>
                 </div>
             </div>
-            <div class="text-center mt-5 animate__animated animate__fadeInUp" style="animation-delay: 0.8s;">
-                <a href="https://form.typeform.com/to/ebjeojFk" class="cta-button btn-lg mb-4" role="button" aria-label="Book Your Free Marketing Consultation">
-                    <i class="fas fa-calendar-alt me-2" aria-hidden="true"></i>Book Your Free Consultation
-                </a>
-                <p class="text-white-50 lead">Ready to take your brand to the next level?</p>
+        </div>
+    </section>
+
+    <!-- Services Container -->
+    <div class="services-container" id="services">
+        <!-- Service 1: SEO & Content -->
+        <section class="service-section bg-black text-white py-5" id="seo-content">
+            <div class="container">
+                <div class="row align-items-center">
+                    <!-- Left Side: Text Content -->
+                    <div class="col-lg-7 service-content pe-lg-5">
+                        <span class="service-badge">Core Strategy</span>
+                        <h2 class="service-title mb-4">SEO & Content Marketing</h2>
+                        <p class="service-description mb-4">Elevate your digital presence with a comprehensive strategy that builds authority, increases visibility, and drives organic traffic growth. Our data-driven approach ensures sustainable, long-term results.</p>
+                        
+                        <div class="service-features mb-4">
+                            <div class="feature-item">
+                                <i class="fas fa-check-circle feature-icon"></i>
+                                <span>Technical SEO Optimization</span>
+                            </div>
+                            <div class="feature-item">
+                                <i class="fas fa-check-circle feature-icon"></i>
+                                <span>Keyword Research & Strategy</span>
+                            </div>
+                            <div class="feature-item">
+                                <i class="fas fa-check-circle feature-icon"></i>
+                                <span>Content Marketing Strategy</span>
+                            </div>
+                            <div class="feature-item">
+                                <i class="fas fa-check-circle feature-icon"></i>
+                                <span>Social Media Growth</span>
+                            </div>
+                            <div class="feature-item">
+                                <i class="fas fa-check-circle feature-icon"></i>
+                                <span>Link Building & Authority Development</span>
+                            </div>
+                        </div>
+                        
+                        <a href="https://form.typeform.com/to/ebjeojFk" class="service-cta">
+                            Get Started <i class="fas fa-arrow-right ms-2"></i>
+                        </a>
+                    </div>
+                    
+                    <!-- Right Side: Service Logo/Icon -->
+                    <div class="col-lg-5 service-visual mt-5 mt-lg-0">
+                        <div class="service-icon-wrapper">
+                            <i class="fas fa-rocket service-icon"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Service 2: Paid Acquisition -->
+        <section class="service-section bg-black text-white py-5" id="paid-acquisition">
+            <div class="container">
+                <div class="row align-items-center">
+                    <!-- Left Side: Text Content -->
+                    <div class="col-lg-7 service-content pe-lg-5">
+                        <span class="service-badge service-badge-featured">Most Popular</span>
+                        <h2 class="service-title mb-4">Paid Acquisition</h2>
+                        <p class="service-description mb-4">Scale your business with precision-targeted paid campaigns that maximize ROI and capture high-intent customers. Our data-driven approach ensures your advertising budget is optimized for the highest possible return.</p>
+                        
+                        <div class="service-features mb-4">
+                            <div class="feature-item">
+                                <i class="fas fa-check-circle feature-icon"></i>
+                                <span>Google & Bing Ads Management</span>
+                            </div>
+                            <div class="feature-item">
+                                <i class="fas fa-check-circle feature-icon"></i>
+                                <span>Social Media Advertising</span>
+                            </div>
+                            <div class="feature-item">
+                                <i class="fas fa-check-circle feature-icon"></i>
+                                <span>Retargeting Campaigns</span>
+                            </div>
+                            <div class="feature-item">
+                                <i class="fas fa-check-circle feature-icon"></i>
+                                <span>Landing Page Optimization</span>
+                            </div>
+                        </div>
+                        
+                        <a href="https://form.typeform.com/to/ebjeojFk" class="service-cta">
+                            Get Started <i class="fas fa-arrow-right ms-2"></i>
+                        </a>
+                    </div>
+                    
+                    <!-- Right Side: Service Logo/Icon -->
+                    <div class="col-lg-5 service-visual mt-5 mt-lg-0">
+                        <div class="service-icon-wrapper">
+                            <i class="fas fa-bullseye service-icon"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Service 3: Performance Analytics -->
+        <section class="service-section bg-black text-white py-5" id="performance-analytics">
+            <div class="container">
+                <div class="row align-items-center">
+                    <!-- Left Side: Text Content -->
+                    <div class="col-lg-7 service-content pe-lg-5">
+                        <span class="service-badge">Insights</span>
+                        <h2 class="service-title mb-4">Performance Analytics</h2>
+                        <p class="service-description mb-4">Make data-driven decisions with real-time analytics and actionable insights that fuel continuous growth. Our advanced analytics solutions help you understand exactly what's working and what needs optimization.</p>
+                        
+                        <div class="service-features mb-4">
+                            <div class="feature-item">
+                                <i class="fas fa-check-circle feature-icon"></i>
+                                <span>Custom Analytics Dashboard</span>
+                            </div>
+                            <div class="feature-item">
+                                <i class="fas fa-check-circle feature-icon"></i>
+                                <span>Conversion Tracking & Optimization</span>
+                            </div>
+                            <div class="feature-item">
+                                <i class="fas fa-check-circle feature-icon"></i>
+                                <span>User Behavior Analysis</span>
+                            </div>
+                            <div class="feature-item">
+                                <i class="fas fa-check-circle feature-icon"></i>
+                                <span>ROI & Performance Reporting</span>
+                            </div>
+                        </div>
+                        
+                        <a href="https://form.typeform.com/to/ebjeojFk" class="service-cta">
+                            Get Started <i class="fas fa-arrow-right ms-2"></i>
+                        </a>
+                    </div>
+                    
+                    <!-- Right Side: Service Logo/Icon -->
+                    <div class="col-lg-5 service-visual mt-5 mt-lg-0">
+                        <div class="service-icon-wrapper">
+                            <i class="fas fa-chart-line service-icon"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Consulting CTA Section -->
+    <section class="py-5 bg-white text-dark consulting-cta-section">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-8 text-center">
+                    <h2 class="display-4 fw-bold mb-5">Ready to Transform Your Digital Presence?</h2>
+                    <a href="https://form.typeform.com/to/ebjeojFk" class="cta-button cta-button-dark btn-lg" role="button" aria-label="Book a Consultation">
+                        <i class="fas fa-calendar-check me-2" aria-hidden="true"></i>Book Your Consultation
+                    </a>
+                </div>
             </div>
         </div>
     </section>
@@ -399,41 +636,56 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     <!-- Custom JS -->
     <script src="js/script.js"></script>
-
-    <!-- Add this style in your CSS file -->
-    <style>
-    .pulse-icon {
-        animation: pulse 2s infinite;
-    }
     
-    @keyframes pulse {
-        0% {
-            transform: scale(1);
+    <!-- Mouse tracking for Quality Content section -->
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const section = document.querySelector('.quality-content-section');
+        const heading = document.getElementById('quality-content-heading');
+        const accentLine = section.querySelector('.accent-line');
+        
+        // Set initial opacity
+        heading.style.opacity = '0';
+        accentLine.style.opacity = '0';
+        
+        // Function to check if element is in viewport
+        function isInViewport(element) {
+            const rect = element.getBoundingClientRect();
+            const windowHeight = window.innerHeight || document.documentElement.clientHeight;
+            
+            // Different thresholds for different sized screens
+            let threshold = 0.3; // Default threshold (30% of element needs to be visible)
+            
+            if (window.innerWidth < 768) {
+                threshold = 0.2; // On mobile, only need 20% of element to be visible
+            }
+            
+            return (
+                rect.top <= windowHeight * (1 - threshold) &&
+                rect.bottom >= windowHeight * threshold
+            );
         }
-        50% {
-            transform: scale(1.1);
+        
+        // Function to handle scroll events
+        function handleScroll() {
+            if (isInViewport(section)) {
+                heading.style.opacity = '1';
+                accentLine.style.opacity = '1';
+                accentLine.style.width = '150px';
+            } else {
+                heading.style.opacity = '0';
+                accentLine.style.opacity = '0';
+                accentLine.style.width = '80px';
+            }
         }
-        100% {
-            transform: scale(1);
-        }
-    }
-
-    .stat-card {
-        transition: transform 0.3s ease;
-    }
-
-    .stat-card:hover {
-        transform: translateY(-10px);
-    }
-
-    .counter {
-        transition: color 0.3s ease;
-    }
-
-    .stat-card:hover .counter {
-        color: var(--accent-color);
-    }
-    </style>
+        
+        // Add scroll event listener
+        window.addEventListener('scroll', handleScroll);
+        
+        // Trigger on page load too
+        handleScroll();
+    });
+    </script>
 </body>
 </html> 
 
