@@ -132,25 +132,11 @@ body {
     transform-origin: center center;
 }
 
-/* Frame around the video (changed to black) */
+/* Removing the black frame while keeping the rounded corners */
+/* Video container now has no frame, only the video itself has borders */
 .video-container::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    border-radius: 24px;
-    padding: 10px;
-    background: #000000;
-    /* Changed to black */
-    -webkit-mask:
-        linear-gradient(#fff 0 0) content-box,
-        linear-gradient(#fff 0 0);
-    -webkit-mask-composite: xor;
-    mask-composite: exclude;
-    pointer-events: none;
-    z-index: 1;
+    content: none;
+    /* Removing the black frame entirely */
 }
 
 /* Hover effect remains, but now starts from a more zoomed state */
@@ -666,18 +652,28 @@ footer {
         font-size: 3.5rem;
     }
 
-    /* Services Section */
+    /* Services Section - Tablet Layout */
+    .service-section .row {
+        flex-direction: column-reverse;
+    }
+
     .service-title {
         font-size: 2.5rem;
     }
 
     .service-visual {
-        margin-top: 3rem;
+        margin-bottom: 2rem;
+        margin-top: 0;
+    }
+
+    .service-content {
+        text-align: center;
     }
 
     .service-icon-wrapper {
-        width: 200px;
-        height: 200px;
+        width: 180px;
+        height: 180px;
+        margin: 0 auto;
     }
 
     .service-icon {
@@ -685,13 +681,17 @@ footer {
     }
 
     .service-icon-wrapper::before {
+        width: 200px;
+        height: 200px;
+    }
+
+    .service-icon-wrapper::after {
         width: 220px;
         height: 220px;
     }
 
-    .service-icon-wrapper::after {
-        width: 240px;
-        height: 240px;
+    .feature-item {
+        justify-content: center;
     }
 
     .testimonial-card {
@@ -789,10 +789,39 @@ footer {
         font-size: 2.5rem;
     }
 
-    /* Services Section */
+    /* Services Section - Mobile Reorganization */
     .service-section {
         padding: 4rem 0;
         text-align: center;
+    }
+
+    .service-section .row {
+        flex-direction: column-reverse;
+    }
+
+    .service-visual {
+        margin-bottom: 2rem;
+        margin-top: 0 !important;
+    }
+
+    .service-icon-wrapper {
+        width: 120px;
+        height: 120px;
+        margin: 0 auto;
+    }
+
+    .service-icon {
+        font-size: 3.5rem;
+    }
+
+    .service-icon-wrapper::before {
+        width: 140px;
+        height: 140px;
+    }
+
+    .service-icon-wrapper::after {
+        width: 160px;
+        height: 160px;
     }
 
     .service-content {
