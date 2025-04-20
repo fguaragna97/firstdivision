@@ -13,6 +13,9 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Quality Content section animation
     handleQualityContentSection();
+    
+    // Set up Google Ads conversion tracking for CTA buttons
+    setupConversionTracking();
 }); 
 
 // Handle Navbar Scroll Effect
@@ -351,4 +354,58 @@ function adjustHeightsForMobile() {
     }
     
     // Adjust other responsive elements if needed
+}
+
+// Set up Google Ads conversion tracking for all CTA buttons
+function setupConversionTracking() {
+    // Select all CTA buttons on the page
+    const ctaButtons = document.querySelectorAll('.cta-button, .service-cta');
+    
+    // Add click event listeners to each button
+    ctaButtons.forEach(button => {
+        button.addEventListener('click', function(e) {
+            // Track the conversion in Google Ads
+            if (typeof gtag === 'function') {
+                // Send the conversion event to Google Ads
+                gtag('event', 'conversion', {
+                    'send_to': 'AW-16917883729/kN3OCIPQrPcYEP6v06Qp',
+                    'value': 1.0,
+                    'currency': 'USD',
+                    'transaction_id': ''
+                });
+                
+                // Also send a custom event to Google Analytics
+                gtag('event', 'cta_button_click', {
+                    'event_category': 'engagement',
+                    'event_label': button.textContent.trim(),
+                    'value': 1
+                });
+                
+                console.log('Conversion tracked for button:', button.textContent.trim());
+            }
+        });
+    });
+    
+    // Also track form submissions if there are any forms
+    const forms = document.querySelectorAll('form');
+    forms.forEach(form => {
+        form.addEventListener('submit', function(e) {
+            if (typeof gtag === 'function') {
+                gtag('event', 'conversion', {
+                    'send_to': 'AW-16917883729/8l7FCKDRrPcYEP6v06Qp',
+                    'value': 1.0,
+                    'currency': 'USD'
+                });
+                
+                // Also send a form submission event to Google Analytics
+                gtag('event', 'form_submission', {
+                    'event_category': 'lead',
+                    'event_label': form.getAttribute('id') || 'contact_form',
+                    'value': 1
+                });
+                
+                console.log('Form submission conversion tracked');
+            }
+        });
+    });
 } 
