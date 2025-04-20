@@ -364,7 +364,19 @@ function setupConversionTracking() {
     // Add click event listeners to each button
     ctaButtons.forEach(button => {
         button.addEventListener('click', function(e) {
-            // Track the conversion in Google Ads
+            // Check if it's an outbound link (not starting with # or javascript:)
+            const href = button.getAttribute('href');
+            if (href && !href.startsWith('#') && !href.startsWith('javascript:')) {
+                // If it's an external link, use the gtag_report_conversion function
+                if (typeof gtag_report_conversion === 'function') {
+                    e.preventDefault(); // Prevent default navigation
+                    console.log('Outbound click conversion tracked for:', button.textContent.trim());
+                    gtag_report_conversion(href); // This handles the redirect
+                    return false;
+                }
+            }
+            
+            // For internal links or if gtag_report_conversion isn't available, use the regular tracking
             if (typeof gtag === 'function') {
                 // Send the conversion event to Google Ads
                 gtag('event', 'conversion', {
