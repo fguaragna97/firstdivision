@@ -16,6 +16,9 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Set up Google Ads conversion tracking for CTA buttons
     setupConversionTracking();
+    
+    // Initialize language detection and translation
+    initLanguageHandling();
 }); 
 
 // Handle Navbar Scroll Effect
@@ -419,5 +422,290 @@ function setupConversionTracking() {
                 console.log('Form submission conversion tracked');
             }
         });
+    });
+}
+
+// Handle language detection and translation
+function initLanguageHandling() {
+    // Check if we already have a language preference saved
+    let currentLang = localStorage.getItem('preferredLanguage');
+    
+    // If no saved preference, try to detect browser language
+    if (!currentLang) {
+        const browserLang = navigator.language || navigator.userLanguage;
+        if (browserLang && browserLang.startsWith('es')) {
+            currentLang = 'es'; // Spanish
+        } else {
+            currentLang = 'en'; // Default to English
+        }
+        // Save the detected language
+        localStorage.setItem('preferredLanguage', currentLang);
+    }
+    
+    // Language switcher setup (will be added to the navigation)
+    createLanguageSwitcher();
+    
+    // Apply the language
+    applyLanguage(currentLang);
+    
+    // Check if the user is from a Spanish-speaking country via IP (this is a simple check)
+    checkCountryAndSuggestLanguage();
+}
+
+// Create language switcher UI
+function createLanguageSwitcher() {
+    const navbarNav = document.querySelector('.navbar-nav');
+    if (!navbarNav) return;
+    
+    // Create language switcher list item
+    const langSwitcherLi = document.createElement('li');
+    langSwitcherLi.className = 'nav-item dropdown language-switcher';
+    
+    // Create dropdown toggle
+    const dropdownToggle = document.createElement('a');
+    dropdownToggle.className = 'nav-link dropdown-toggle';
+    dropdownToggle.href = '#';
+    dropdownToggle.setAttribute('data-bs-toggle', 'dropdown');
+    dropdownToggle.setAttribute('aria-expanded', 'false');
+    dropdownToggle.id = 'languageDropdown';
+    dropdownToggle.innerHTML = '<i class="fas fa-globe"></i> <span class="lang-text">Language</span>';
+    
+    // Create dropdown menu
+    const dropdownMenu = document.createElement('div');
+    dropdownMenu.className = 'dropdown-menu dropdown-menu-end';
+    dropdownMenu.setAttribute('aria-labelledby', 'languageDropdown');
+    
+    // Add English option
+    const englishOption = document.createElement('a');
+    englishOption.className = 'dropdown-item language-option';
+    englishOption.href = '#';
+    englishOption.setAttribute('data-lang', 'en');
+    englishOption.textContent = 'English';
+    
+    // Add Spanish option
+    const spanishOption = document.createElement('a');
+    spanishOption.className = 'dropdown-item language-option';
+    spanishOption.href = '#';
+    spanishOption.setAttribute('data-lang', 'es');
+    spanishOption.textContent = 'Español';
+    
+    // Assemble the dropdown
+    dropdownMenu.appendChild(englishOption);
+    dropdownMenu.appendChild(spanishOption);
+    langSwitcherLi.appendChild(dropdownToggle);
+    langSwitcherLi.appendChild(dropdownMenu);
+    
+    // Insert before the Contact Us button
+    const contactItem = navbarNav.querySelector('.nav-item:last-child');
+    navbarNav.insertBefore(langSwitcherLi, contactItem);
+    
+    // Add event listeners for language options
+    document.querySelectorAll('.language-option').forEach(option => {
+        option.addEventListener('click', function(e) {
+            e.preventDefault();
+            const lang = this.getAttribute('data-lang');
+            localStorage.setItem('preferredLanguage', lang);
+            applyLanguage(lang);
+        });
+    });
+}
+
+// Apply selected language to the site
+function applyLanguage(lang) {
+    // Update active state in the dropdown
+    document.querySelectorAll('.language-option').forEach(option => {
+        if (option.getAttribute('data-lang') === lang) {
+            option.classList.add('active');
+        } else {
+            option.classList.remove('active');
+        }
+    });
+    
+    // Update the language indicator text
+    const langText = document.querySelector('.lang-text');
+    if (langText) {
+        langText.textContent = lang === 'es' ? 'Idioma' : 'Language';
+    }
+    
+    // If Spanish, translate the site
+    if (lang === 'es') {
+        translateToSpanish();
+    } else {
+        // Restore English (reload the page for simplicity)
+        if (document.documentElement.lang !== 'en') {
+            location.reload();
+        }
+    }
+    
+    // Set the page language attribute
+    document.documentElement.lang = lang;
+}
+
+// Translate the site to Spanish
+function translateToSpanish() {
+    // Translation dictionary for key elements
+    const translations = {
+        // Navigation
+        'Home': 'Inicio',
+        'Services': 'Servicios',
+        'Contact Us': 'Contáctenos',
+        
+        // Hero Section
+        'Digital Marketing Agency': 'Agencia de Marketing Digital',
+        'Transform Your Digital Presence': 'Transforme Su Presencia Digital',
+        'We deliver results. Our proven strategies drive revenue growth, attract high-value customers, and help brands scale with certainty.': 'Entregamos resultados. Nuestras estrategias comprobadas impulsan el crecimiento de ingresos, atraen clientes de alto valor y ayudan a las marcas a escalar con certeza.',
+        'Get Started': 'Comenzar Ahora',
+        
+        // Quality Content Section
+        'Where quality content meets meaningful growth.': 'Donde el contenido de calidad se encuentra con el crecimiento significativo.',
+        
+        // Services Section
+        'Strategy': 'Estrategia',
+        'Organic Growth': 'Crecimiento Orgánico',
+        'Dominate your market with data-driven SEO strategies and engaging social media campaigns that create lasting impact. We help your business build a strong online foundation that generates traffic and leads without relying solely on paid advertising.': 'Domine su mercado con estrategias de SEO basadas en datos y campañas atractivas de redes sociales que crean un impacto duradero. Ayudamos a su negocio a construir una base sólida en línea que genera tráfico y clientes potenciales sin depender únicamente de la publicidad pagada.',
+        'Search Engine Optimization (SEO)': 'Optimización para Motores de Búsqueda (SEO)',
+        'Content Marketing Strategy': 'Estrategia de Marketing de Contenidos',
+        'Social Media Growth': 'Crecimiento en Redes Sociales',
+        'Link Building & Authority Development': 'Construcción de Enlaces y Desarrollo de Autoridad',
+        'Get Started': 'Comenzar Ahora',
+        
+        'Most Popular': 'Más Popular',
+        'Paid Acquisition': 'Adquisición Pagada',
+        'Scale your business with precision-targeted paid campaigns that maximize ROI and capture high-intent customers. Our data-driven approach ensures your advertising budget is optimized for the highest possible return.': 'Escale su negocio con campañas pagas de precisión que maximizan el ROI y capturan clientes con alta intención. Nuestro enfoque basado en datos asegura que su presupuesto publicitario sea optimizado para el mayor retorno posible.',
+        'Google & Bing Ads Management': 'Gestión de Anuncios de Google y Bing',
+        'Social Media Advertising': 'Publicidad en Redes Sociales',
+        'Retargeting Campaigns': 'Campañas de Retargeting',
+        'Landing Page Optimization': 'Optimización de Páginas de Destino',
+        
+        'Insights': 'Análisis',
+        'Performance Analytics': 'Análisis de Rendimiento',
+        'Make data-driven decisions with real-time analytics and actionable insights that fuel continuous growth. Our advanced analytics solutions help you understand exactly what's working and what needs optimization.': 'Tome decisiones basadas en datos con análisis en tiempo real e información procesable que impulsa el crecimiento continuo. Nuestras soluciones avanzadas de análisis le ayudan a entender exactamente qué está funcionando y qué necesita optimización.',
+        'Custom Analytics Dashboard': 'Panel de Análisis Personalizado',
+        'Conversion Tracking & Optimization': 'Seguimiento y Optimización de Conversiones',
+        'User Behavior Analysis': 'Análisis de Comportamiento del Usuario',
+        'ROI & Performance Reporting': 'Informes de ROI y Rendimiento',
+        
+        // CTA Section
+        'Ready to Transform Your Digital Presence?': '¿Listo para Transformar Su Presencia Digital?',
+        'Get Started Today': 'Comience Hoy Mismo',
+        
+        // Footer
+        'All rights reserved.': 'Todos los derechos reservados.'
+    };
+    
+    // Helper function to translate text content of elements
+    function translateElements(selector, translationKey) {
+        document.querySelectorAll(selector).forEach(el => {
+            if (translations[el.textContent.trim()]) {
+                el.textContent = translations[el.textContent.trim()];
+            } else if (translationKey && translations[translationKey]) {
+                el.textContent = translations[translationKey];
+            }
+        });
+    }
+    
+    // Translate navigation links
+    translateElements('.nav-link:not(.cta-button):not(.dropdown-toggle)');
+    translateElements('.nav-link.cta-button');
+    
+    // Translate hero section
+    translateElements('.badge.bg-accent');
+    translateElements('.main-title');
+    translateElements('.hero-subtitle');
+    translateElements('.cta-button');
+    
+    // Translate quality content section
+    translateElements('#quality-content-heading');
+    
+    // Translate services section
+    translateElements('.service-badge');
+    translateElements('.service-title');
+    translateElements('.service-description');
+    translateElements('.feature-item span');
+    translateElements('.service-cta');
+    
+    // Translate CTA section
+    translateElements('.consulting-cta-section h2');
+    translateElements('.consulting-cta-section .cta-button');
+    
+    // Translate footer
+    const footerText = document.querySelector('footer p.mb-0');
+    if (footerText) {
+        footerText.innerHTML = footerText.innerHTML.replace('All rights reserved.', 'Todos los derechos reservados.');
+    }
+}
+
+// Check user's country via IP and suggest language change if from Spanish-speaking country
+function checkCountryAndSuggestLanguage() {
+    // Use a free IP geolocation API (no API key required)
+    fetch('https://ipapi.co/json/')
+        .then(response => response.json())
+        .then(data => {
+            // List of Spanish-speaking countries by country code
+            const spanishCountries = [
+                'ES', 'MX', 'AR', 'CO', 'PE', 'VE', 'CL', 
+                'EC', 'GT', 'CU', 'BO', 'DO', 'HN', 'PY', 
+                'SV', 'NI', 'CR', 'PA', 'UY', 'PR', 'GQ'
+            ];
+            
+            // If user is from a Spanish-speaking country and currently viewing in English
+            if (spanishCountries.includes(data.country_code) && localStorage.getItem('preferredLanguage') !== 'es') {
+                // Show language suggestion banner after a short delay
+                setTimeout(() => {
+                    showLanguageSuggestion();
+                }, 2000);
+            }
+        })
+        .catch(error => {
+            console.log('Unable to detect user country:', error);
+        });
+}
+
+// Show suggestion banner for Spanish-speaking users
+function showLanguageSuggestion() {
+    // Create suggestion banner
+    const banner = document.createElement('div');
+    banner.className = 'language-suggestion-banner';
+    banner.style.cssText = `
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background-color: rgba(0,0,0,0.9);
+        color: white;
+        padding: 15px;
+        text-align: center;
+        z-index: 1000;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 16px;
+        gap: 20px;
+    `;
+    
+    banner.innerHTML = `
+        <div>¿Prefieres ver esta página en español?</div>
+        <button id="switchToSpanish" class="btn btn-light btn-sm">Sí, cambiar a español</button>
+        <button id="keepEnglish" class="btn btn-outline-light btn-sm">No, keep in English</button>
+        <button id="closeBanner" class="btn-close btn-close-white" aria-label="Close"></button>
+    `;
+    
+    // Add banner to page
+    document.body.appendChild(banner);
+    
+    // Add event listeners
+    document.getElementById('switchToSpanish').addEventListener('click', function() {
+        localStorage.setItem('preferredLanguage', 'es');
+        applyLanguage('es');
+        banner.remove();
+    });
+    
+    document.getElementById('keepEnglish').addEventListener('click', function() {
+        localStorage.setItem('preferredLanguage', 'en');
+        banner.remove();
+    });
+    
+    document.getElementById('closeBanner').addEventListener('click', function() {
+        banner.remove();
     });
 } 
