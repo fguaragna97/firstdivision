@@ -2,8 +2,16 @@ User-agent: *
 Allow: /
 Sitemap: https://firstdivision.com/sitemap.xml
 
+# Important content sections
+Allow: /index.html
+Allow: /about.html
+Allow: /portfolio.html
+Allow: /assets/
+Allow: /css/
+Allow: /js/
+
 # Optimize crawling
-Crawl-delay: 10
+Crawl-delay: 5
 
 # Disallow specific directories
 Disallow: /admin/

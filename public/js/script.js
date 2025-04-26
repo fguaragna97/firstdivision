@@ -19,6 +19,42 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Initialize language detection and translation
     initLanguageHandling();
+    
+    // Initialize portfolio page carousel if we're on the portfolio page
+    const portfolioCarousel = document.querySelector('.portfolio-carousel');
+    if (portfolioCarousel && typeof $.fn.slick !== 'undefined') {
+        $('.portfolio-carousel').slick({
+            slidesToShow: 2,
+            slidesToScroll: 1,
+            autoplay: true,
+            autoplaySpeed: 5000,
+            arrows: true,
+            dots: true,
+            responsive: [
+                {
+                    breakpoint: 992,
+                    settings: {
+                        slidesToShow: 1
+                    }
+                }
+            ]
+        });
+        
+        // Play videos on hover
+        const portfolioItems = document.querySelectorAll('.portfolio-item');
+        portfolioItems.forEach(item => {
+            const video = item.querySelector('video');
+            if (video) {
+                item.addEventListener('mouseenter', () => {
+                    video.play();
+                });
+                
+                item.addEventListener('mouseleave', () => {
+                    video.pause();
+                });
+            }
+        });
+    }
 }); 
 
 // Handle Navbar Scroll Effect
@@ -548,6 +584,8 @@ function translateToSpanish() {
         // Navigation
         'Home': 'Inicio',
         'Services': 'Servicios',
+        'Our Portfolio': 'Nuestro Portafolio',
+        'About Us': 'Sobre Nosotros',
         'Contact Us': 'Contáctenos',
         
         // Hero Section
@@ -588,9 +626,28 @@ function translateToSpanish() {
         // CTA Section
         'Ready to Transform Your Digital Presence?': '¿Listo para Transformar Su Presencia Digital?',
         'Get Started Today': 'Comience Hoy Mismo',
+        'Let\'s Work Together': 'Trabajemos Juntos',
         
         // Footer
-        'All rights reserved.': 'Todos los derechos reservados.'
+        'All rights reserved.': 'Todos los derechos reservados.',
+        
+        // Portfolio Page
+        'Our Portfolio': 'Nuestro Portafolio',
+        'Explore our showcase of successful client campaigns and creative solutions. Each project represents our commitment to driving meaningful results and transforming digital presence through innovative strategies.': 'Explore nuestra muestra de campañas exitosas y soluciones creativas. Cada proyecto representa nuestro compromiso de impulsar resultados significativos y transformar la presencia digital a través de estrategias innovadoras.',
+        'Ready to Be Our Next Success Story?': '¿Listo para Ser Nuestra Próxima Historia de Éxito?',
+        
+        // About Us Page
+        'Our Story': 'Nuestra Historia',
+        'How First Division Was Born': 'Cómo Nació First Division',
+        'Our Core Values': 'Nuestros Valores Fundamentales',
+        'Results-Driven Approach': 'Enfoque Orientado a Resultados',
+        'Creative Innovation': 'Innovación Creativa',
+        'Client Partnership': 'Asociación con Clientes',
+        'Data-Driven Decisions': 'Decisiones Basadas en Datos',
+        'Collaborative Excellence': 'Excelencia Colaborativa',
+        'Continuous Growth': 'Crecimiento Continuo',
+        'Ready to Work With Us?': '¿Listo para Trabajar con Nosotros?',
+        'Get in Touch Today': 'Contáctenos Hoy'
     };
     
     // Helper function to translate text content of elements
@@ -627,6 +684,16 @@ function translateToSpanish() {
     // Translate CTA section
     translateElements('.consulting-cta-section h2');
     translateElements('.consulting-cta-section .cta-button');
+    
+    // Translate portfolio page elements
+    translateElements('.portfolio-title');
+    translateElements('.portfolio-description');
+    
+    // Translate about us page elements
+    translateElements('.about-title');
+    translateElements('.about-subtitle');
+    translateElements('.about-description');
+    translateElements('.value-title');
     
     // Translate footer
     const footerText = document.querySelector('footer p.mb-0');
