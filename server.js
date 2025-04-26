@@ -2,8 +2,7 @@ const http = require('http');
 const fs = require('fs');
 const path = require('path');
 
-const PORT = 3001;
-const PUBLIC_DIR = path.join(__dirname, 'public');
+const PORT = 3002;
 
 const MIME_TYPES = {
   '.html': 'text/html',
@@ -17,61 +16,67 @@ const MIME_TYPES = {
   '.svg': 'image/svg+xml',
   '.ico': 'image/x-icon',
   '.mp4': 'video/mp4',
+  '.webm': 'video/webm',
+  '.ogg': 'video/ogg',
+  '.mp3': 'audio/mpeg',
+  '.wav': 'audio/wav',
+  '.pdf': 'application/pdf',
+  '.ttf': 'font/ttf',
+  '.woff': 'font/woff',
+  '.woff2': 'font/woff2',
+  '.eot': 'application/vnd.ms-fontobject',
+  '.otf': 'font/otf'
 };
 
 const server = http.createServer((req, res) => {
-  console.log(`${new Date().toISOString()} - ${req.method} ${req.url}`);
-  
-  // Handle favicon.ico request
+  // Handle favicon.ico requests
   if (req.url === '/favicon.ico') {
-    const faviconPath = path.join(PUBLIC_DIR, 'favicon.svg');
-    try {
-      const icon = fs.readFileSync(faviconPath);
-      res.setHeader('Content-Type', 'image/svg+xml');
-      res.writeHead(200);
-      res.end(icon);
-      return;
-    } catch (e) {
-      res.writeHead(404);
-      res.end();
-      return;
-    }
-  }
-  
-  // Default to index.html for root path
-  let filePath = path.join(PUBLIC_DIR, req.url === '/' ? 'index.html' : req.url);
-  
-  // Make sure we're not going outside the public directory (security)
-  if (!filePath.startsWith(PUBLIC_DIR)) {
-    res.writeHead(403);
-    res.end('Forbidden');
+    res.statusCode = 204;
+    res.end();
     return;
   }
+
+  console.log(`${req.method} ${req.url}`);
   
-  const extname = path.extname(filePath);
-  const contentType = MIME_TYPES[extname] || 'application/octet-stream';
+  // Normalize URL path
+  let filePath = 'public' + req.url;
+  if (filePath === 'public/') {
+    filePath = 'public/index.html';
+  }
+
+  // Get file extension
+  const extname = path.extname(filePath).toLowerCase();
   
+  // Default content type is text/plain
+  let contentType = MIME_TYPES[extname] || 'text/plain';
+  
+  // Read the file
   fs.readFile(filePath, (err, content) => {
     if (err) {
       if (err.code === 'ENOENT') {
-        // File not found
-        res.writeHead(404);
-        res.end(`File not found: ${req.url}`);
+        // Page not found
+        fs.readFile('public/index.html', (err, content) => {
+          if (err) {
+            res.writeHead(500);
+            res.end('Error: ' + err.code);
+          } else {
+            res.writeHead(200, { 'Content-Type': 'text/html' });
+            res.end(content, 'utf-8');
+          }
+        });
       } else {
         // Server error
         res.writeHead(500);
-        res.end(`Server Error: ${err.code}`);
+        res.end('Error: ' + err.code);
       }
     } else {
       // Success
-      res.setHeader('Content-Type', contentType);
-      res.writeHead(200);
-      res.end(content);
+      res.writeHead(200, { 'Content-Type': contentType });
+      res.end(content, 'utf-8');
     }
   });
 });
 
 server.listen(PORT, () => {
   console.log(`Server running at http://localhost:${PORT}/`);
-  console.log(`Serving files from: ${PUBLIC_DIR}`);
 }); 
