@@ -20,9 +20,10 @@ document.addEventListener('DOMContentLoaded', function() {
     // Initialize language detection and translation
     initLanguageHandling();
     
-    // Initialize portfolio page carousel if we're on the portfolio page
+    // Only initialize portfolio carousel from script.js if we're not on the portfolio.html page
+    // This prevents conflicts with portfolio.html's own initialization
     const portfolioCarousel = document.querySelector('.portfolio-carousel');
-    if (portfolioCarousel && typeof $.fn.slick !== 'undefined') {
+    if (portfolioCarousel && typeof $.fn.slick !== 'undefined' && !document.body.classList.contains('portfolio-page')) {
         $('.portfolio-carousel').slick({
             slidesToShow: 2,
             slidesToScroll: 1,

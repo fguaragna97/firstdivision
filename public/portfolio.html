@@ -97,25 +97,25 @@
             <div class="col-12 px-0">
                 <div class="portfolio-carousel-container">
                     <div class="portfolio-carousel">
-                        <!-- Portfolio Item 1: Drive Me Barcelona (swapped to be first) -->
-                        <div class="portfolio-item">
+                        <!-- Portfolio Item 1: Drive Me Barcelona -->
+                        <div class="portfolio-item driveme-item">
                             <video autoplay muted loop playsinline>
                                 <source src="assets/videos/Driveme.mp4" type="video/mp4">
                             </video>
-                            <div class="portfolio-overlay">
-                                <h3 class="client-name">Drive Me Barcelona</h3>
-                                <p class="client-description">Produced a dynamic showcase video for this luxury car rental service in Barcelona, highlighting their premium fleet and exclusive customer experience. Our targeted campaign increased booking inquiries by 165% and helped secure high-value long-term rentals from international clients.</p>
+                            <div class="portfolio-overlay driveme-overlay">
+                                <h3>Drive Me Barcelona</h3>
+                                <p>Produced a dynamic showcase video for this luxury car rental service in Barcelona, highlighting their premium fleet and exclusive customer experience. Our targeted campaign increased booking inquiries by 165% and helped secure high-value long-term rentals from international clients.</p>
                             </div>
                         </div>
                         
-                        <!-- Portfolio Item 2: Vinichi (moved to second position) -->
-                        <div class="portfolio-item">
+                        <!-- Portfolio Item 2: Vinichi -->
+                        <div class="portfolio-item vinichi-item">
                             <video autoplay muted loop playsinline>
                                 <source src="assets/videos/Vinichi.mp4" type="video/mp4">
                             </video>
-                            <div class="portfolio-overlay">
-                                <h3 class="client-name">Vinichi</h3>
-                                <p class="client-description">Crafted a cinematic teaser video for this luxury sportswear brand that captured their premium aesthetics and performance focus. Our strategic campaign elevated brand perception, increased engagement by 215%, and drove a 78% boost in exclusive collection sales.</p>
+                            <div class="portfolio-overlay vinichi-overlay">
+                                <h3>Vinichi</h3>
+                                <p>Crafted a cinematic teaser video for this luxury sportswear brand that captured their premium aesthetics and performance focus. Our strategic campaign elevated brand perception, increased engagement by 215%, and drove a 78% boost in exclusive collection sales.</p>
                             </div>
                         </div>
                     </div>
@@ -165,6 +165,32 @@
             const $customPrev = $('<div class="custom-arrow custom-prev"><i class="fas fa-chevron-left"></i></div>');
             const $customNext = $('<div class="custom-arrow custom-next"><i class="fas fa-chevron-right"></i></div>');
             $container.append($customPrev).append($customNext);
+            
+            // Simplified instant hover effects
+            const portfolioItems = document.querySelectorAll('.portfolio-item');
+            portfolioItems.forEach(item => {
+                const overlay = item.querySelector('.portfolio-overlay');
+                const video = item.querySelector('video');
+                
+                item.addEventListener('mouseenter', () => {
+                    if (overlay) {
+                        // Force instant visibility with important flag
+                        overlay.style.cssText = "opacity: 1 !important; transition: none !important;";
+                    }
+                    if (video) {
+                        video.style.cssText = "transform: scale(1.05) !important; filter: blur(2px) !important; transition: none !important;";
+                    }
+                });
+                
+                item.addEventListener('mouseleave', () => {
+                    if (overlay) {
+                        overlay.style.cssText = "opacity: 0 !important; transition: none !important;";
+                    }
+                    if (video) {
+                        video.style.cssText = "transform: scale(1) !important; filter: blur(0) !important; transition: none !important;";
+                    }
+                });
+            });
             
             // Video preparation
             const videos = document.querySelectorAll('.portfolio-item video');

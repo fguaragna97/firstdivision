@@ -1129,43 +1129,90 @@ body.portfolio-page {
     height: 600px;
     overflow: hidden;
     background: #000;
+    cursor: pointer;
 }
 
 .portfolio-item video {
     width: 100%;
     height: 100%;
     object-fit: cover;
+
 }
 
-/* Overlay styles */
+/* Overlay styles - instant effect with no transitions */
 .portfolio-overlay {
     position: absolute;
-    bottom: 0;
+    top: 0;
     left: 0;
     width: 100%;
-    padding: 1.5rem;
-    background: linear-gradient(to top, rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0));
+    height: 100%;
+    padding: 2rem;
+    background: rgba(0, 0, 0, 0.7);
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    text-align: center;
     opacity: 0;
-    transition: opacity 0.3s ease;
-    z-index: 5;
+    z-index: 50;
+    padding-top: 15%;
+    /* Remove all transitions */
 }
 
 .portfolio-item:hover .portfolio-overlay {
     opacity: 1;
+    /* No transitions */
 }
 
-.client-name {
-    font-size: 1.75rem;
-    margin-bottom: 0.5rem;
+.portfolio-item video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    /* No transitions */
+}
+
+.portfolio-item:hover video {
+    transform: scale(1.05);
+    filter: blur(2px);
+    transition: none;
+}
+
+.portfolio-overlay h3 {
+    font-size: 2rem;
+    margin-bottom: 1.5rem;
     font-weight: 600;
     color: #fff;
+    opacity: 1;
 }
 
-.client-description {
-    font-size: 0.95rem;
-    line-height: 1.5;
-    max-width: 90%;
+.portfolio-overlay p {
+    font-size: 1.1rem;
+    line-height: 1.6;
     color: rgba(255, 255, 255, 0.9);
+    max-width: 80%;
+    opacity: 1;
+}
+
+/* Item-specific positioning */
+.driveme-overlay {
+    padding-top: 15%;
+    /* Increased padding-top to lower the text position */
+}
+
+.vinichi-overlay {
+    padding-top: 12%;
+}
+
+/* For mobile devices */
+@media (max-width: 768px) {
+    .portfolio-overlay {
+        padding-top: 10%;
+    }
+
+    .driveme-overlay,
+    .vinichi-overlay {
+        padding-top: 8%;
+    }
 }
 
 /* Navigation arrows - cleaner design without circles */
@@ -1399,4 +1446,17 @@ body.portfolio-page {
         rgba(255, 255, 255, 0.05) 0px 0px 40px,
         rgba(0, 0, 0, 0.3) 0px 20px 25px -5px,
         rgba(0, 0, 0, 0.2) 0px 10px 10px -5px;
+}
+
+/* Vinichi-specific positioning */
+.vinichi-overlay {
+    justify-content: flex-start;
+    padding-top: 15%;
+}
+
+/* For mobile devices */
+@media (max-width: 768px) {
+    .vinichi-overlay {
+        padding-top: 10%;
+    }
 }
