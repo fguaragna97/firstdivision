@@ -1203,15 +1203,70 @@ body.portfolio-page {
     padding-top: 12%;
 }
 
+/* Vinichi-specific positioning */
+.vinichi-overlay {
+    justify-content: flex-start;
+    padding-top: 15%;
+}
+
+/* Desktop/mobile text display control */
+.mobile-text {
+    display: none;
+}
+
+.desktop-text {
+    display: block;
+}
+
 /* For mobile devices */
 @media (max-width: 768px) {
     .portfolio-overlay {
         padding-top: 10%;
+        width: 90%;
+        margin: 0 auto;
+        left: 5%;
+        background: rgba(0, 0, 0, 0);
     }
 
     .driveme-overlay,
     .vinichi-overlay {
         padding-top: 8%;
+        width: 90%;
+        margin: 0 auto;
+        left: 5%;
+        background: rgba(0, 0, 0, 0);
+    }
+
+    /* Fix for portfolio container height on mobile */
+    .portfolio-carousel-container {
+        height: 200px;
+    }
+
+    .portfolio-item {
+        height: 200px;
+    }
+
+    /* Make overlay text smaller on mobile */
+    .portfolio-overlay h3 {
+        font-size: 1.3rem;
+        margin-bottom: 0.7rem;
+        text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.8);
+    }
+
+    .portfolio-overlay p {
+        font-size: 0.9rem;
+        line-height: 1.4;
+        max-width: 100%;
+        text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.8);
+    }
+
+    /* Show mobile text, hide desktop text */
+    .mobile-text {
+        display: block;
+    }
+
+    .desktop-text {
+        display: none;
     }
 }
 
@@ -1458,5 +1513,66 @@ body.portfolio-page {
 @media (max-width: 768px) {
     .vinichi-overlay {
         padding-top: 10%;
+        width: 90%;
+        margin: 0 auto;
+        left: 5%;
+        background: rgba(0, 0, 0, 0);
+    }
+}
+
+/* Desktop/mobile text display control */
+.mobile-text {
+    display: none;
+}
+
+.desktop-text {
+    display: block;
+}
+
+/* For mobile devices */
+@media (max-width: 768px) {
+    .portfolio-overlay {
+        padding-top: 10%;
+        width: 90%;
+        margin: 0 auto;
+        left: 5%;
+        background: rgba(0, 0, 0, 0);
+    }
+
+    .driveme-overlay,
+    .vinichi-overlay {
+        padding-top: 8%;
+    }
+
+    /* Fix for portfolio container height on mobile */
+    .portfolio-carousel-container {
+        height: 200px;
+    }
+
+    .portfolio-item {
+        height: 200px;
+    }
+
+    /* Make overlay text smaller on mobile */
+    .portfolio-overlay h3 {
+        font-size: 1.3rem;
+        margin-bottom: 0.7rem;
+        text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.8);
+    }
+
+    .portfolio-overlay p {
+        font-size: 0.9rem;
+        line-height: 1.4;
+        max-width: 100%;
+        text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.8);
+    }
+
+    /* Show mobile text, hide desktop text */
+    .mobile-text {
+        display: block;
+    }
+
+    .desktop-text {
+        display: none;
     }
 }
