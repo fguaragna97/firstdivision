@@ -8,54 +8,59 @@
         xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
   <url>
     <loc>https://firstdivision.com/</loc>
-    <lastmod>2024-04-22</lastmod>
+    <lastmod>2024-12-21</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
-  </url>
-  <url>
-    <loc>https://firstdivision.com/about.html</loc>
-    <lastmod>2024-04-22</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://firstdivision.com/portfolio.html</loc>
-    <lastmod>2024-04-22</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://firstdivision.com/index.html</loc>
-    <lastmod>2024-04-22</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>1.0</priority>
-  </url>
-  <url>
-    <loc>https://firstdivision.com/services</loc>
-    <lastmod>2024-03-09</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://firstdivision.com/contact</loc>
-    <lastmod>2024-03-09</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://firstdivision.com/blog</loc>
-    <lastmod>2024-03-09</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
     <image:image>
-      <image:loc>https://firstdivision.com/blog-image.jpg</image:loc>
-      <image:title>Digital Marketing Blog</image:title>
+      <image:loc>https://firstdivision.com/og-image.jpg</image:loc>
+      <image:title>First Division Agency - Premier Digital Marketing Agency</image:title>
+      <image:caption>First Division Agency specializing in luxury brand marketing</image:caption>
     </image:image>
   </url>
   <url>
-    <loc>https://firstdivision.com/case-studies</loc>
-    <lastmod>2024-03-09</lastmod>
+    <loc>https://firstdivision.com/about.html</loc>
+    <lastmod>2024-12-21</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+    <image:image>
+      <image:loc>https://firstdivision.com/og-image.jpg</image:loc>
+      <image:title>About First Division Agency Team</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://firstdivision.com/portfolio.html</loc>
+    <lastmod>2024-12-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
+    <video:video>
+      <video:thumbnail_loc>https://firstdivision.com/assets/videos/Driveme-thumb.jpg</video:thumbnail_loc>
+      <video:title>Drive Me Barcelona - First Division Agency Portfolio</video:title>
+      <video:description>Luxury car rental marketing campaign by First Division Agency</video:description>
+    </video:video>
+    <video:video>
+      <video:thumbnail_loc>https://firstdivision.com/assets/videos/Vinichi-thumb.jpg</video:thumbnail_loc>
+      <video:title>Vinichi - First Division Agency Portfolio</video:title>
+      <video:description>Luxury sportswear brand marketing campaign by First Division Agency</video:description>
+    </video:video>
+  </url>
+  <url>
+    <loc>https://firstdivision.com/index.html</loc>
+    <lastmod>2024-12-21</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://firstdivision.com/thank-you.html</loc>
+    <lastmod>2024-12-21</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
+  </url>
+  <!-- Additional pages for better coverage -->
+  <url>
+    <loc>https://firstdivision.com/</loc>
+    <lastmod>2024-12-21</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+    <mobile:mobile/>
   </url>
 </urlset> 

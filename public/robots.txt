@@ -2,28 +2,51 @@ User-agent: *
 Allow: /
 Sitemap: https://firstdivision.com/sitemap.xml
 
+# First Division Agency - Digital Marketing Agency
 # Important content sections
 Allow: /index.html
 Allow: /about.html
 Allow: /portfolio.html
+Allow: /thank-you.html
 Allow: /assets/
 Allow: /css/
 Allow: /js/
+Allow: /images/
 
-# Optimize crawling
-Crawl-delay: 5
+# SEO-friendly paths
+Allow: /assets/videos/
+Allow: /assets/images/
+Allow: /favicon.svg
+Allow: /manifest.json
+
+# Optimize crawling for search engines
+Crawl-delay: 3
 
 # Disallow specific directories
 Disallow: /admin/
 Disallow: /private/
 Disallow: /temp/
 Disallow: /assets/downloads/
+Disallow: /*.pdf$
 
 # Allow specific bots with custom rules
 User-agent: Googlebot
 Allow: /
-Crawl-delay: 5
+Crawl-delay: 1
 
 User-agent: Bingbot
 Allow: /
-Crawl-delay: 5 
+Crawl-delay: 3
+
+User-agent: facebookexternalhit
+Allow: /
+
+User-agent: Twitterbot
+Allow: /
+
+# Block unwanted bots
+User-agent: AhrefsBot
+Disallow: /
+
+User-agent: SemrushBot
+Disallow: / 
