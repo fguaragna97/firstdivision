@@ -99,8 +99,9 @@
                     <div class="portfolio-carousel">
                         <!-- Portfolio Item 1: Drive Me Barcelona -->
                         <div class="portfolio-item driveme-item">
-                            <video autoplay muted loop playsinline>
+                            <video autoplay muted loop playsinline preload="metadata">
                                 <source src="assets/videos/Driveme.mp4" type="video/mp4">
+                                Your browser does not support the video tag.
                             </video>
                             <div class="portfolio-overlay driveme-overlay">
                                 <h3>Drive Me Barcelona</h3>
@@ -111,8 +112,9 @@
                         
                         <!-- Portfolio Item 2: Vinichi -->
                         <div class="portfolio-item vinichi-item">
-                            <video autoplay muted loop playsinline>
+                            <video autoplay muted loop playsinline preload="metadata">
                                 <source src="assets/videos/Vinichi.mp4" type="video/mp4">
+                                Your browser does not support the video tag.
                             </video>
                             <div class="portfolio-overlay vinichi-overlay">
                                 <h3>Vinichi</h3>
@@ -195,12 +197,28 @@
                 });
             });
             
-            // Video preparation
+            // Video preparation - Enhanced handling
             const videos = document.querySelectorAll('.portfolio-item video');
-            videos.forEach(video => {
+            videos.forEach((video, index) => {
                 video.muted = true;
                 video.setAttribute('playsinline', '');
                 video.setAttribute('loop', '');
+                
+                // Add loading event listeners for debugging
+                video.addEventListener('loadstart', () => {
+                    console.log(`Video ${index} (${video.querySelector('source').src}) started loading`);
+                });
+                
+                video.addEventListener('canplay', () => {
+                    console.log(`Video ${index} can play`);
+                });
+                
+                video.addEventListener('error', (e) => {
+                    console.error(`Video ${index} error:`, e);
+                });
+                
+                // Preload the video
+                video.load();
             });
             
             // Initialize carousel with custom arrow settings
@@ -225,19 +243,41 @@
                 $('.portfolio-carousel').slick('slickNext');
             });
             
-            // Play the initial video
-            videos[0].play().catch(e => {});
-            
-            // Handle slide changes
-            $('.portfolio-carousel').on('beforeChange', function(event, slick, currentSlide, nextSlide) {
-                videos.forEach((video, index) => {
-                    if (index === nextSlide) {
-                        video.currentTime = 0;
-                        video.play().catch(e => {});
-                    } else {
-                        video.pause();
+            // Enhanced video playback handling
+            function playVideo(index) {
+                if (videos[index]) {
+                    videos[index].currentTime = 0;
+                    const playPromise = videos[index].play();
+                    if (playPromise !== undefined) {
+                        playPromise.catch(error => {
+                            console.error(`Error playing video ${index}:`, error);
+                        });
                     }
-                });
+                }
+            }
+            
+            function pauseVideo(index) {
+                if (videos[index]) {
+                    videos[index].pause();
+                }
+            }
+            
+            // Play the initial video with better error handling
+            setTimeout(() => {
+                playVideo(0);
+            }, 500);
+            
+            // Handle slide changes with improved video management
+            $('.portfolio-carousel').on('beforeChange', function(event, slick, currentSlide, nextSlide) {
+                console.log(`Switching from slide ${currentSlide} to ${nextSlide}`);
+                
+                // Pause current video
+                pauseVideo(currentSlide);
+                
+                // Play next video
+                setTimeout(() => {
+                    playVideo(nextSlide);
+                }, 100);
             });
             
             // Add slide counter
