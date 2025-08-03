@@ -52,21 +52,24 @@
     <link rel="alternate" hreflang="x-default" href="https://firstdivision.com/">
 
     <!-- Preload Critical Resources -->
-    <link rel="preload" href="vendor/critical.css" as="style">
+    <link rel="preconnect" href="https://cdn.jsdelivr.net">
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com">
     <link rel="preload" href="css/styles.css" as="style">
+    <link rel="preload" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" as="style">
 
     <!-- Language alternatives -->
     <link rel="alternate" hreflang="en" href="https://firstdivision.com/">
     <link rel="alternate" hreflang="es" href="https://firstdivision.com/?lang=es">
     <link rel="alternate" hreflang="x-default" href="https://firstdivision.com/">
 
-    <!-- Critical CSS - Inlined for performance -->
-    <link href="vendor/critical.css" rel="stylesheet">
-    <!-- Custom CSS - Optimized -->
-    <link href="css/styles-optimized.css" rel="stylesheet">
-    <!-- Animate.css - Lazy loaded -->
-    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-    <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"></noscript>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link href="css/styles.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <!-- Animate.css -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
 
     <!-- JSON-LD Structured Data -->
     <script type="application/ld+json">
@@ -357,11 +360,11 @@
                 
                 <!-- Right Side: Video -->
                 <div class="col-lg-6 hero-content-right">
-                                <div class="video-container">
-                <video autoplay muted loop playsinline class="rounded-video">
-                    <source src="assets/videos/Background_optimized.mp4" type="video/mp4">
-                </video>
-            </div>
+                    <div class="video-container">
+                        <video autoplay muted loop playsinline class="rounded-video">
+                            <source src="assets/videos/Background.mp4" type="video/mp4">
+                        </video>
+                    </div>
                 </div>
             </div>
         </div>
@@ -535,10 +538,10 @@
         </div>
     </footer>
 
-    <!-- Minimal Bootstrap JS -->
-    <script src="vendor/bootstrap-minimal.js"></script>
-    <!-- Custom JS - Deferred for better performance -->
-    <script defer src="js/script.js"></script>
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Custom JS -->
+    <script src="js/script.js"></script>
 
     <!-- Event snippet for Outbound click conversion page -->
     <script>
