@@ -46,10 +46,10 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         // Fire the conversion tracking
         gtag_report_conversion();
         
-        // Redirect to the actual form after a short delay (1.5 seconds)
+        // Redirect to the actual form after minimal delay (300ms - just enough for tracking)
         setTimeout(function() {
             window.location.href = 'https://form.typeform.com/to/ebjeojFk';
-        }, 1500);
+        }, 300);
         
         // Backup redirect in case user clicks anywhere
         document.addEventListener('click', function() {
