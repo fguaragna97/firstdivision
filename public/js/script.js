@@ -617,8 +617,10 @@ function translateToSpanish() {
         
         // Hero Section
         'Digital Marketing Agency': 'Agencia de Marketing Digital',
-        'Transform Your Digital Presence': 'Transforme Su Presencia Digital',
-        'We deliver results. Our proven strategies drive revenue growth, attract high-value customers, and help brands scale with certainty.': 'Entregamos resultados. Nuestras estrategias comprobadas impulsan el crecimiento de ingresos, atraen clientes de alto valor y ayudan a las marcas a escalar con certeza.',
+        'Turn Clicks into Cash: Scale Your Business Fast': 'Convierte Clics en Dinero: Escala Tu Negocio Rápido',
+        'Transform Your Digital Presence': 'Transforme Su Presencia Digital', // Keep for backward compatibility
+        'At First Division, we don\'t just help you grow, we make you money. Our high-impact strategies drive serious revenue, attract top-tier customers, and scale your business faster than you thought possible. Ready to see measurable returns? Let\'s turn your digital presence into a profit powerhouse.': 'En First Division, no solo te ayudamos a crecer, te hacemos ganar dinero. Nuestras estrategias de alto impacto generan ingresos serios, atraen clientes de primera clase y escalan tu negocio más rápido de lo que creías posible. ¿Listo para ver retornos medibles? Convirtamos tu presencia digital en una potencia de ganancias.',
+        'We deliver results. Our proven strategies drive revenue growth, attract high-value customers, and help brands scale with certainty.': 'Entregamos resultados. Nuestras estrategias comprobadas impulsan el crecimiento de ingresos, atraen clientes de alto valor y ayudan a las marcas a escalar con certeza.', // Keep for backward compatibility
         'Get Started': 'Comenzar Ahora',
         
         // Quality Content Section
@@ -696,7 +698,8 @@ function translateToSpanish() {
         'We are committed to ongoing learning and development, constantly enhancing our expertise to deliver ever-improving results.': 'Estamos comprometidos con el aprendizaje y desarrollo continuo, mejorando constantemente nuestra experiencia para entregar resultados cada vez mejores.',
         
         // Page Titles (for dynamic title updates)
-        'First Division Agency | Premier Digital Marketing Agency | Luxury Brand Marketing': 'First Division Agency | Agencia Premier de Marketing Digital | Marketing para Marcas de Lujo',
+        'Turn Clicks into Cash | First Division Digital Marketing Agency | Scale Your Business Fast': 'Convierte Clics en Dinero | First Division Agencia de Marketing Digital | Escala Tu Negocio Rápido',
+        'First Division Agency | Premier Digital Marketing Agency | Luxury Brand Marketing': 'First Division Agency | Agencia Premier de Marketing Digital | Marketing para Marcas de Lujo', // Keep for backward compatibility
         'About First Division Agency | Premier Digital Marketing Agency Story & Team': 'Sobre First Division Agency | Historia y Equipo de Agencia Premier de Marketing Digital',
         'Portfolio - First Division Agency | Digital Marketing Case Studies & Success Stories': 'Portafolio - First Division Agency | Casos de Estudio y Historias de Éxito en Marketing Digital'
     };
@@ -733,6 +736,7 @@ function translateToSpanish() {
         const currentDescription = metaDescription.getAttribute('content');
         // Add Spanish meta descriptions
         const spanishDescriptions = {
+            'Turn clicks into cash with First Division Agency. We make you money with high-impact digital marketing strategies that drive serious revenue, attract top-tier customers, and scale your business fast.': 'Convierte clics en dinero con First Division Agency. Te hacemos ganar dinero con estrategias de marketing digital de alto impacto que generan ingresos serios, atraen clientes de primera clase y escalan tu negocio rápido.',
             'First Division Agency is a premier digital marketing agency specializing in luxury brands, e-commerce & hospitality. First Division delivers data-driven marketing strategies that elevate premium brands worldwide.': 'First Division Agency es una agencia premier de marketing digital especializada en marcas de lujo, e-commerce y hospitalidad. First Division ofrece estrategias de marketing basadas en datos que elevan marcas premium a nivel mundial.',
             'Learn about First Division Agency\'s journey to becoming a leading digital marketing agency. Discover our story, unique approach, and the expert team behind First Division\'s luxury marketing success.': 'Conozca el viaje de First Division Agency para convertirse en una agencia líder de marketing digital. Descubra nuestra historia, enfoque único y el equipo experto detrás del éxito de marketing de lujo de First Division.',
             'Explore First Division Agency\'s portfolio of successful digital marketing campaigns. View our work with leading luxury brands and the measurable results we\'ve delivered as a premier marketing agency.': 'Explore el portafolio de First Division Agency de campañas exitosas de marketing digital. Vea nuestro trabajo con marcas de lujo líderes y los resultados medibles que hemos entregado como agencia premier de marketing.'
