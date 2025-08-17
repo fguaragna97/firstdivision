@@ -464,19 +464,28 @@ function setupConversionTracking() {
 
 // Handle language detection and translation
 function initLanguageHandling() {
-    // Check if we already have a language preference saved
-    let currentLang = localStorage.getItem('preferredLanguage');
+    // Check for language parameter in URL first
+    const urlParams = new URLSearchParams(window.location.search);
+    let currentLang = urlParams.get('lang');
     
-    // If no saved preference, try to detect browser language
-    if (!currentLang) {
-        const browserLang = navigator.language || navigator.userLanguage;
-        if (browserLang && browserLang.startsWith('es')) {
-            currentLang = 'es'; // Spanish
-        } else {
-            currentLang = 'en'; // Default to English
-        }
-        // Save the detected language
+    // If URL has language parameter, save it as preference
+    if (currentLang && (currentLang === 'en' || currentLang === 'es')) {
         localStorage.setItem('preferredLanguage', currentLang);
+    } else {
+        // Check if we already have a language preference saved
+        currentLang = localStorage.getItem('preferredLanguage');
+        
+        // If no saved preference, try to detect browser language
+        if (!currentLang) {
+            const browserLang = navigator.language || navigator.userLanguage;
+            if (browserLang && browserLang.startsWith('es')) {
+                currentLang = 'es'; // Spanish
+            } else {
+                currentLang = 'en'; // Default to English
+            }
+            // Save the detected language
+            localStorage.setItem('preferredLanguage', currentLang);
+        }
     }
     
     // Language switcher setup (will be added to the navigation)
@@ -487,6 +496,24 @@ function initLanguageHandling() {
     
     // Check if the user is from a Spanish-speaking country via IP (this is a simple check)
     checkCountryAndSuggestLanguage();
+    
+    // Update URL without refreshing page if needed
+    updateLanguageURL(currentLang);
+}
+
+// Update URL to reflect current language without refreshing the page
+function updateLanguageURL(lang) {
+    const url = new URL(window.location);
+    if (lang === 'es') {
+        url.searchParams.set('lang', 'es');
+    } else {
+        url.searchParams.delete('lang'); // English is default, no parameter needed
+    }
+    
+    // Update the URL without refreshing the page
+    if (url.toString() !== window.location.toString()) {
+        window.history.replaceState({}, '', url);
+    }
 }
 
 // Create language switcher UI
@@ -543,6 +570,7 @@ function createLanguageSwitcher() {
             const lang = this.getAttribute('data-lang');
             localStorage.setItem('preferredLanguage', lang);
             applyLanguage(lang);
+            updateLanguageURL(lang);
         });
     });
 }
@@ -568,10 +596,8 @@ function applyLanguage(lang) {
     if (lang === 'es') {
         translateToSpanish();
     } else {
-        // Restore English (reload the page for simplicity)
-        if (document.documentElement.lang !== 'en') {
-            location.reload();
-        }
+        // Restore English meta tags and attributes
+        restoreEnglish();
     }
     
     // Set the page language attribute
@@ -580,11 +606,11 @@ function applyLanguage(lang) {
 
 // Translate the site to Spanish
 function translateToSpanish() {
-    // Translation dictionary for key elements
+    // Comprehensive translation dictionary for all page elements
     const translations = {
         // Navigation
         'Home': 'Inicio',
-        'Services': 'Servicios',
+        'Services': 'Servicios', 
         'Our Portfolio': 'Nuestro Portafolio',
         'About Us': 'Sobre Nosotros',
         'Contact Us': 'Contáctenos',
@@ -606,7 +632,6 @@ function translateToSpanish() {
         'Content Marketing Strategy': 'Estrategia de Marketing de Contenidos',
         'Social Media Growth': 'Crecimiento en Redes Sociales',
         'Link Building & Authority Development': 'Construcción de Enlaces y Desarrollo de Autoridad',
-        'Get Started': 'Comenzar Ahora',
         
         'Most Popular': 'Más Popular',
         'Paid Acquisition': 'Adquisición Pagada',
@@ -624,42 +649,97 @@ function translateToSpanish() {
         'User Behavior Analysis': 'Análisis de Comportamiento del Usuario',
         'ROI & Performance Reporting': 'Informes de ROI y Rendimiento',
         
-        // CTA Section
+        // CTA Sections
         'Ready to Transform Your Digital Presence?': '¿Listo para Transformar Su Presencia Digital?',
         'Get Started Today': 'Comience Hoy Mismo',
         'Let\'s Work Together': 'Trabajemos Juntos',
+        'Ready to Be Our Next Success Story?': '¿Listo para Ser Nuestra Próxima Historia de Éxito?',
+        'Ready to Work With Us?': '¿Listo para Trabajar con Nosotros?',
+        'Get in Touch Today': 'Contáctenos Hoy',
+        'Partner with First Division Agency and join the ranks of luxury brands that have elevated their marketing to new heights.': 'Asóciese con First Division Agency y únase a las filas de marcas de lujo que han elevado su marketing a nuevas alturas.',
         
         // Footer
         'All rights reserved.': 'Todos los derechos reservados.',
         
-        // Portfolio Page
-        'Our Portfolio': 'Nuestro Portafolio',
-        'Explore our showcase of successful client campaigns and creative solutions. Each project represents our commitment to driving meaningful results and transforming digital presence through innovative strategies.': 'Explore nuestra muestra de campañas exitosas y soluciones creativas. Cada proyecto representa nuestro compromiso de impulsar resultados significativos y transformar la presencia digital a través de estrategias innovadoras.',
-        'Ready to Be Our Next Success Story?': '¿Listo para Ser Nuestra Próxima Historia de Éxito?',
+        // Portfolio Page specific content
+        'Drive Me Barcelona': 'Drive Me Barcelona',
+        'First Division Agency produced a dynamic showcase video for this luxury car rental service in Barcelona, highlighting their premium fleet and exclusive customer experience. Our targeted campaign increased booking inquiries by 165% and helped secure high-value long-term rentals from international clients.': 'First Division Agency produjo un video dinámico para este servicio de alquiler de autos de lujo en Barcelona, destacando su flota premium y experiencia exclusiva. Nuestra campaña dirigida aumentó las consultas de reservas en un 165% y ayudó a asegurar alquileres a largo plazo de alto valor de clientes internacionales.',
+        'First Division Agency\'s showcase video for luxury car rentals. Increased inquiries by 165% and secured high-value international clients.': 'Video de First Division Agency para alquiler de autos de lujo. Aumentó consultas en 165% y aseguró clientes internacionales de alto valor.',
+        'Vinichi': 'Vinichi',
+        'First Division Agency crafted a cinematic teaser video for this luxury sportswear brand that captured their premium aesthetics and performance focus. Our strategic campaign elevated brand perception, increased engagement by 215%, and drove a 78% boost in exclusive collection sales.': 'First Division Agency creó un video teaser cinematográfico para esta marca de ropa deportiva de lujo que capturó su estética premium y enfoque en rendimiento. Nuestra campaña estratégica elevó la percepción de marca, aumentó el engagement en 215% y impulsó un aumento del 78% en ventas de colección exclusiva.',
+        'First Division Agency\'s cinematic video for luxury sportswear. Increased engagement by 215% and boosted sales by 78%.': 'Video cinematográfico de First Division Agency para ropa deportiva de lujo. Aumentó engagement en 215% e impulsó ventas en 78%.',
         
-        // About Us Page
+        // About Us Page specific content 
         'Our Story': 'Nuestra Historia',
         'How First Division Was Born': 'Cómo Nació First Division',
+        'At First Division, our story starts with something simple — a shared passion for growth. We met at a local running club, not knowing that a few conversations would lead to the start of a media and marketing agency. What brought us together was more than just running. It was a mindset: a daily effort to improve, to stay consistent, and to aim higher in everything we do.': 'En First Division, nuestra historia comienza con algo simple: una pasión compartida por el crecimiento. Nos conocimos en un club de running local, sin saber que unas conversaciones llevarían al inicio de una agencia de medios y marketing. Lo que nos unió fue más que solo correr. Fue una mentalidad: un esfuerzo diario para mejorar, mantenerse consistente y apuntar más alto en todo lo que hacemos.',
+        'At the time, both of us were creating content for our own social media accounts. We were experimenting with video, developing our creative style, and learning how to capture attention through storytelling. As we refined our skills, we saw an opportunity: to take that same passion and help businesses grow — not just in visibility, but in reputation and revenue.': 'En ese momento, ambos creábamos contenido para nuestras propias cuentas de redes sociales. Experimentábamos con video, desarrollando nuestro estilo creativo y aprendiendo cómo capturar atención a través de storytelling. Mientras refinábamos nuestras habilidades, vimos una oportunidad: tomar esa misma pasión y ayudar a los negocios a crecer, no solo en visibilidad, sino en reputación e ingresos.',
+        'That\'s how First Division began.': 'Así es como comenzó First Division.',
+        'Today, we specialize in working with luxury brands, premium e-commerce businesses, and high-end hospitality — from boutique hotels to exclusive villas. These industries demand more than just content. They demand storytelling that reflects quality, elegance, and experience. We help brands stand out in a crowded digital space through content that is clean, refined, and designed to convert.': 'Hoy nos especializamos en trabajar con marcas de lujo, negocios premium de e-commerce y hospitalidad de alta gama, desde hoteles boutique hasta villas exclusivas. Estas industrias demandan más que solo contenido. Demandan storytelling que refleje calidad, elegancia y experiencia. Ayudamos a las marcas a destacar en un espacio digital saturado a través de contenido que es limpio, refinado y diseñado para convertir.',
+        'We handle everything from short-form video production to full-scale digital strategy, combining creative direction with performance marketing. Whether it\'s helping a luxury villa reach international travelers or positioning a premium e-commerce product for high-value clients, we work closely with each brand to build a tailored strategy that drives results.': 'Manejamos todo desde producción de video de formato corto hasta estrategia digital a gran escala, combinando dirección creativa con marketing de performance. Ya sea ayudando a una villa de lujo a llegar a viajeros internacionales o posicionando un producto premium de e-commerce para clientes de alto valor, trabajamos estrechamente con cada marca para construir una estrategia personalizada que genere resultados.',
+        'At First Division, we\'re not just a content agency. We\'re growth partners. We care deeply about how your brand is seen and how it performs — and we\'re here to help you connect with the customers that matter most.': 'En First Division, no somos solo una agencia de contenido. Somos socios de crecimiento. Nos preocupamos profundamente por cómo se ve tu marca y cómo funciona, y estamos aquí para ayudarte a conectar con los clientes que más importan.',
+        'Let\'s build something exceptional, together.': 'Construyamos algo excepcional, juntos.',
+        
+        // Core Values
         'Our Core Values': 'Nuestros Valores Fundamentales',
         'Results-Driven Approach': 'Enfoque Orientado a Resultados',
+        'We measure our success by the results we deliver. Every strategy, campaign, and tactic is designed with clear, measurable objectives.': 'Medimos nuestro éxito por los resultados que entregamos. Cada estrategia, campaña y táctica está diseñada con objetivos claros y medibles.',
         'Creative Innovation': 'Innovación Creativa',
+        'We constantly explore new ideas and approaches, staying ahead of digital trends to provide our clients with cutting-edge solutions.': 'Constantemente exploramos nuevas ideas y enfoques, manteniéndonos por delante de las tendencias digitales para brindar a nuestros clientes soluciones de vanguardia.',
         'Client Partnership': 'Asociación con Clientes',
+        'We believe in building true partnerships with our clients, becoming an extension of their team rather than just a service provider.': 'Creemos en construir verdaderas asociaciones con nuestros clientes, convirtiéndonos en una extensión de su equipo en lugar de solo un proveedor de servicios.',
         'Data-Driven Decisions': 'Decisiones Basadas en Datos',
+        'Every recommendation we make is backed by comprehensive data analysis, ensuring strategies that are both effective and efficient.': 'Cada recomendación que hacemos está respaldada por análisis de datos comprehensivo, asegurando estrategias que son efectivas y eficientes.',
         'Collaborative Excellence': 'Excelencia Colaborativa',
+        'We believe that the best results come from combining diverse perspectives and skillsets in a collaborative environment.': 'Creemos que los mejores resultados vienen de combinar perspectivas diversas y habilidades en un ambiente colaborativo.',
         'Continuous Growth': 'Crecimiento Continuo',
-        'Ready to Work With Us?': '¿Listo para Trabajar con Nosotros?',
-        'Get in Touch Today': 'Contáctenos Hoy'
+        'We are committed to ongoing learning and development, constantly enhancing our expertise to deliver ever-improving results.': 'Estamos comprometidos con el aprendizaje y desarrollo continuo, mejorando constantemente nuestra experiencia para entregar resultados cada vez mejores.',
+        
+        // Page Titles (for dynamic title updates)
+        'First Division Agency | Premier Digital Marketing Agency | Luxury Brand Marketing': 'First Division Agency | Agencia Premier de Marketing Digital | Marketing para Marcas de Lujo',
+        'About First Division Agency | Premier Digital Marketing Agency Story & Team': 'Sobre First Division Agency | Historia y Equipo de Agencia Premier de Marketing Digital',
+        'Portfolio - First Division Agency | Digital Marketing Case Studies & Success Stories': 'Portafolio - First Division Agency | Casos de Estudio y Historias de Éxito en Marketing Digital'
     };
     
     // Helper function to translate text content of elements
     function translateElements(selector, translationKey) {
         document.querySelectorAll(selector).forEach(el => {
-            if (translations[el.textContent.trim()]) {
-                el.textContent = translations[el.textContent.trim()];
+            const originalText = el.textContent.trim();
+            if (translations[originalText]) {
+                el.textContent = translations[originalText];
             } else if (translationKey && translations[translationKey]) {
                 el.textContent = translations[translationKey];
             }
         });
+    }
+    
+    // Helper function to translate HTML content (for elements with nested HTML)
+    function translateHTML(selector, originalText, translatedText) {
+        const elements = document.querySelectorAll(selector);
+        elements.forEach(el => {
+            el.innerHTML = el.innerHTML.replace(originalText, translatedText);
+        });
+    }
+    
+    // Translate page title
+    const currentTitle = document.title;
+    if (translations[currentTitle]) {
+        document.title = translations[currentTitle];
+    }
+    
+    // Translate meta descriptions
+    const metaDescription = document.querySelector('meta[name="description"]');
+    if (metaDescription) {
+        const currentDescription = metaDescription.getAttribute('content');
+        // Add Spanish meta descriptions
+        const spanishDescriptions = {
+            'First Division Agency is a premier digital marketing agency specializing in luxury brands, e-commerce & hospitality. First Division delivers data-driven marketing strategies that elevate premium brands worldwide.': 'First Division Agency es una agencia premier de marketing digital especializada en marcas de lujo, e-commerce y hospitalidad. First Division ofrece estrategias de marketing basadas en datos que elevan marcas premium a nivel mundial.',
+            'Learn about First Division Agency\'s journey to becoming a leading digital marketing agency. Discover our story, unique approach, and the expert team behind First Division\'s luxury marketing success.': 'Conozca el viaje de First Division Agency para convertirse en una agencia líder de marketing digital. Descubra nuestra historia, enfoque único y el equipo experto detrás del éxito de marketing de lujo de First Division.',
+            'Explore First Division Agency\'s portfolio of successful digital marketing campaigns. View our work with leading luxury brands and the measurable results we\'ve delivered as a premier marketing agency.': 'Explore el portafolio de First Division Agency de campañas exitosas de marketing digital. Vea nuestro trabajo con marcas de lujo líderes y los resultados medibles que hemos entregado como agencia premier de marketing.'
+        };
+        if (spanishDescriptions[currentDescription]) {
+            metaDescription.setAttribute('content', spanishDescriptions[currentDescription]);
+        }
     }
     
     // Translate navigation links
@@ -682,25 +762,70 @@ function translateToSpanish() {
     translateElements('.feature-item span');
     translateElements('.service-cta');
     
-    // Translate CTA section
+    // Translate CTA sections
     translateElements('.consulting-cta-section h2');
     translateElements('.consulting-cta-section .cta-button');
+    translateElements('.consulting-cta-section p.lead');
     
     // Translate portfolio page elements
     translateElements('.portfolio-title');
     translateElements('.portfolio-description');
+    translateElements('.portfolio-overlay h3');
+    translateElements('.portfolio-overlay .desktop-text');
+    translateElements('.portfolio-overlay .mobile-text');
     
     // Translate about us page elements
     translateElements('.about-title');
     translateElements('.about-subtitle');
     translateElements('.about-description');
+    translateElements('.story-highlight');
     translateElements('.value-title');
+    translateElements('.value-item p');
     
     // Translate footer
     const footerText = document.querySelector('footer p.mb-0');
     if (footerText) {
         footerText.innerHTML = footerText.innerHTML.replace('All rights reserved.', 'Todos los derechos reservados.');
     }
+    
+    // Update hreflang attributes for Spanish
+    document.querySelectorAll('link[hreflang]').forEach(link => {
+        if (link.getAttribute('hreflang') === 'x-default' && link.getAttribute('href').includes('?lang=es')) {
+            link.remove();
+        }
+    });
+    
+    // Update Open Graph locale
+    const ogLocale = document.querySelector('meta[property="og:locale"]');
+    if (ogLocale) {
+        ogLocale.setAttribute('content', 'es_ES');
+    }
+    
+    // Update language meta tags
+    const languageMeta = document.querySelector('meta[name="language"]');
+    if (languageMeta) {
+        languageMeta.setAttribute('content', 'es');
+    }
+    
+    const contentLanguageMeta = document.querySelector('meta[http-equiv="content-language"]');
+    if (contentLanguageMeta) {
+        contentLanguageMeta.setAttribute('content', 'es');
+    }
+    
+    // Update document language attribute
+    document.documentElement.setAttribute('lang', 'es');
+}
+
+// Restore English language settings
+function restoreEnglish() {
+    // Only restore if we're not already in English
+    if (document.documentElement.lang === 'en') {
+        return;
+    }
+    
+    // Reload the page to restore original English content
+    // This is the simplest approach to ensure all content is restored properly
+    location.reload();
 }
 
 // Check user's country via IP and suggest language change if from Spanish-speaking country
@@ -765,6 +890,7 @@ function showLanguageSuggestion() {
     document.getElementById('switchToSpanish').addEventListener('click', function() {
         localStorage.setItem('preferredLanguage', 'es');
         applyLanguage('es');
+        updateLanguageURL('es');
         banner.remove();
     });
     
